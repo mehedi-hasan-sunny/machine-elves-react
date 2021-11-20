@@ -3,7 +3,7 @@ import '../assets/css/Team.css';
 const TeamCard = ({imgSrc, name, designation, job}) => {
 	return (
 			<div className={"team--card mb-3"}>
-				<img src={imgSrc} alt="" className={"img-fluid team--card-img"}/>
+				<img src={imgSrc} alt="" className={"img-fluid team--card-img"} loading={"lazy"}/>
 				<div className={"py-3"}>
 					<h4>{name} - {designation}</h4>
 					<p className={"white m-0"}>

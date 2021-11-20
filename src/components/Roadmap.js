@@ -29,7 +29,7 @@ function Roadmap(props) {
 					<div className={"timeline--right"}>
 						<div className="timeline--right-container">
 							<div className={"timeline--right-wrapper"}>
-								<img src={require("../assets/images/UseThis2.png").default} alt="" className="img-fluid"/>
+								<img src={require("../assets/images/UseThis2.png").default} alt="" className="img-fluid" loading={"lazy"}/>
 								<div className={"mb-3"}>
 									<strong>November 22 begin, finish November 25 at 9pm:</strong>
 									<ul className={"ps-3"}>
@@ -56,7 +56,7 @@ function Roadmap(props) {
 					<div className={"timeline--right"}>
 						<div className="timeline--right-container">
 							<div className={"timeline--right-wrapper"}>
-								<img src={require("../assets/images/UseThis4.png").default} alt="" className="img-fluid"/>
+								<img src={require("../assets/images/UseThis4.png").default} alt="" className="img-fluid" loading={"lazy"}/>
 								<div className={"mb-3"}>
 									<strong>November 26</strong>
 									<ul className={"ps-3"}>
@@ -105,7 +105,7 @@ function Roadmap(props) {
 									* 25 randomly generated Machine Elves are being
 									reserved for marketing efforts and the team.
 								</p>
-								<img src={require("../assets/images/Landingpage.png").default} alt="" className="img-fluid"/>
+								<img src={require("../assets/images/Landingpage.png").default} alt="" className="img-fluid" loading={"lazy"}/>
 								<p>
 									After all 5,555 Machine Elves have been minted,
 									one will be randomly selected as winner of a
@@ -128,7 +128,7 @@ function Roadmap(props) {
 					<div className={"timeline--right"}>
 						<div className="timeline--right-container">
 							<div className={"timeline--right-wrapper"}>
-								<img src={require("../assets/images/UseThis.png").default} alt="" className="img-fluid"/>
+								<img src={require("../assets/images/UseThis.png").default} alt="" className="img-fluid" loading={"lazy"}/>
 								<p>
 									We will release POOL PORTALS for holders. Each
 									POOL PORTAL causes end users to leap into a

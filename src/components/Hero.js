@@ -11,11 +11,11 @@ const Hero = () => {
 				<div className="row mx-0">
 					<div className="col-12 col-md-6 col-lg-7 order-2 order-md-1 position-relative">
 						<img className="hero--img img-fluid" src={require("../assets/images/Machine_Elves_NFT_For_Adam_3.png").default}
-						     alt="Machine Elves hero 1"/>
+						     alt="Machine Elves hero 1" loading={"lazy"}/>
 						<img className="hero--img img-fluid" src={require("../assets/images/Machine_Elves_NFT_For_Adam_1.png").default}
-						     alt="Machine Elves hero 2"/>
+						     alt="Machine Elves hero 2" loading={"lazy"}/>
 						<img className="hero--img img-fluid" src={require("../assets/images/Machine_Elves_NFT_For_Adam_2.png").default}
-						     alt="Machine Elves hero 3"/>
+						     alt="Machine Elves hero 3" loading={"lazy"}/>
 					</div>
 					<div className="col-12 col-md-6 col-lg-5 order-1 order-md-2">
 						<div className={"hero--container d-flex flex-column justify-content-center"}>

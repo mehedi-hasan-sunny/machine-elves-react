@@ -21,7 +21,7 @@ function Mint(props) {
 						to educate society on the advantages of participating in decentralized defi protocols.
 					</p>
 				</div>
-				<img src="/discord-icon.svg" alt="discord icon" className={"mint--discord-icon"} data-aos="zoom-in-down" data-aos-offset="50"/>
+				<img src="/discord-icon.svg"  alt="discord icon" className={"mint--discord-icon"} data-aos="zoom-in-down" data-aos-offset="50" loading={"lazy"}/>
 				<div className={"mint--container mb-5"} data-aos="zoom-in-down" data-aos-offset="-10">
 					<h1 className={"mb-4"} >
 						Join our Discord for giveaways, updates, and to join the Machine Elves community.
