@@ -1,0 +1,131 @@
+.roadmap {
+    width: 100%;
+    background-image: linear-gradient(180deg, #18191a, #13061a);
+    padding: 5rem 1rem;
+
+    color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.roadmap--container {
+    max-width: 45rem;
+    margin: auto;
+}
+
+.roadmap--title {
+    font-size: 3rem;
+    line-height: 3rem;
+    font-weight: 900;
+}
+
+.roadmap--description {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    margin-top: 0;
+}
+
+.timeline {
+    display: flex;
+    justify-content: center;
+}
+
+.timeline--left {
+    display: flex;
+    border-right: 5px solid #a23ddf;
+    padding-top: 3rem;
+    font-size: 1.25rem;
+}
+.timeline--right {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+.timeline--left-container, .timeline--right-container{
+    position: relative;
+    width: 38vw;
+    max-width: 29rem;
+    display: block;
+}
+.timeline--left-wrapper{
+    position: sticky;
+    top: 35%;
+    padding-right: 3rem;
+    padding-bottom: 3rem;
+}
+.timeline--left-wrapper:after{
+    content: " ";
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    top: 10%;
+    transform: translateY(50%);
+    right: -9.5%;
+    border: 1.15em solid;
+    border-color: transparent transparent transparent #62f58c ;
+}
+.timeline:last-of-type .timeline--left-wrapper:after{
+    top: 0;
+    transform: translateY(-25%);
+}
+
+.timeline--right-wrapper{
+    padding-left: 3rem;
+}
+.timeline img{
+    border-radius: 1rem;
+    object-fit: cover;
+    margin-bottom: 1rem;
+}
+
+@media screen and (max-width: 991px) {
+
+    .roadmap--title {
+        font-size: 2.5rem;
+        line-height: 2.5rem;
+    }
+
+    .roadmap--description {
+        font-size: 1.15rem;
+        line-height: 1.15rem;
+    }
+
+}
+
+@media screen and (max-width: 767px) {
+    .roadmap {
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .roadmap--title {
+        font-size: 2rem;
+        line-height: 2rem;
+    }
+
+    .roadmap--description {
+        font-size: 1rem;
+        line-height: 1rem;
+    }
+    .timeline {
+        flex-direction: column;
+    }
+    .timeline--left {
+        border-right: 0;
+        padding-bottom: 1rem;
+    }
+    .timeline--right {
+        max-width: 100%;
+
+    }
+    .timeline--right-wrapper{
+        padding: 0;
+    }
+    .timeline--left-wrapper:after{
+        content: none;
+        border: 0;
+    }
+    .timeline--left-container, .timeline--right-container{
+        width: 100%;
+    }
+}

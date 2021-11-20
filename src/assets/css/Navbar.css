@@ -1,0 +1,94 @@
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 0.25rem 1.75rem;
+    color: white;
+}
+
+.navbar a, #sidebar a {
+    text-decoration: none;
+    color: white;
+}
+
+.navbar--brand {
+    font-family: "Archivo", 'Montserrat', sans-serif;
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding-right: 0.5rem;
+}
+
+.navbar--links {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar--menu {
+    display: none;
+    height: 50px;
+    width: 50px;
+}
+
+.navbar--menu:before {
+    content: " ";
+    box-shadow: 0 -9px #fff, 0 9px #fff;
+    height: 3px;
+    margin: -3px auto;
+    position: relative;
+    top: 50%;
+    width: 32px;
+    display: block;
+    background: #fff;
+}
+
+.navbar--link {
+    font-weight: 600;
+    padding: 1rem;
+}
+
+#sidebar {
+    position: fixed;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: #18191a;
+    width: 12.5rem;
+    z-index: 99;
+    justify-content: flex-start;
+    margin-bottom: auto;
+    box-shadow: -2px 0 10px 0 #ffffff1f;
+    display: none;
+}
+
+#sidebar.show {
+    display: flex;
+}
+
+#sidebar .navbar--links {
+    width: 100%;
+    justify-content: flex-start;
+}
+
+#sidebar .navbar--link {
+    width: 100%;
+}
+
+@media screen and (max-width: 767px) {
+    .navbar {
+        padding: 0.25rem 1rem;
+    }
+
+    .navbar--brand {
+        font-size: 1.25rem;
+    }
+
+    .navbar--links {
+        flex-direction: column;
+    }
+
+    .navbar--menu {
+        display: inline-block;
+    }
+}

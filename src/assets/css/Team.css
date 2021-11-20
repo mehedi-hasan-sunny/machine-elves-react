@@ -1,0 +1,24 @@
+.team {
+    width: 100%;
+    background-color: #171717;
+}
+
+.team--title {
+    font-size: 2.5rem;
+    line-height: 3rem;
+    font-weight: 900;
+}
+
+.team--card {
+    overflow: hidden;
+    height: calc(100% - 1rem);
+}
+.team--card p {
+    line-height: 1.5;
+}
+.team--card-img{
+    max-height: 22rem;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 1rem;
+}
