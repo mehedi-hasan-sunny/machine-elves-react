@@ -55,7 +55,7 @@ const Navbar = () => {
 	}, [prevScrollPos, visibility, handleScroll]);
 	useEffect(() => {
 		if (slider && isHiddenOnMobile) {
-			let links = document.querySelectorAll(".navbar--link");
+			let links = document.querySelectorAll(".navbar__link");
 			links.forEach((link) => {
 				link.addEventListener("click", () => {
 					setSlider(false);
@@ -81,14 +81,14 @@ const Navbar = () => {
 	return (
 			<>
 				<nav className={"navbar"} style={{...navbarStyles, top: visibility ? '0' : '-60px'}}>
-					<a href="/" className={"navbar--brand"}>
+					<a href="/" className={"navbar__brand"}>
 						MACHINE ELVES
 					</a>
 					
 					{
 						!isHiddenOnMobile ? (<NavLinks/>) : (
 								<a href="#" onClick={(event) => openSlider(event)}>
-									<i className={"navbar--menu"}/>
+									<i className={"navbar__menu"}/>
 								</a>
 						)
 					}

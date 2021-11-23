@@ -10,31 +10,31 @@ const Hero = () => {
 				{/*</picture>*/}
 				<div className="row mx-0">
 					<div className="col-12 col-md-6 col-lg-7 order-2 order-md-1 position-relative">
-						<img className="hero--img img-fluid"
+						<img className="hero__img img-fluid"
 						     src={require("../assets/images/Machine_Elves_NFT_For_Adam_3.png").default}
 						     alt="Machine Elves hero 1" loading={"lazy"}/>
-						<img className="hero--img img-fluid"
+						<img className="hero__img img-fluid"
 						     src={require("../assets/images/Machine_Elves_NFT_For_Adam_1.png").default}
 						     alt="Machine Elves hero 2" loading={"lazy"}/>
-						<img className="hero--img img-fluid"
+						<img className="hero__img img-fluid"
 						     src={require("../assets/images/Machine_Elves_NFT_For_Adam_2.png").default}
 						     alt="Machine Elves hero 3" loading={"lazy"}/>
 					</div>
 					<div className="col-12 col-md-6 col-lg-5 order-1 order-md-2">
-						<div className={"hero--container d-flex flex-column justify-content-center"}>
-							<h2 className={"hero--title"} data-aos-delay="50" data-aos="zoom-in-down">
+						<div className={"hero__container d-flex flex-column justify-content-center"}>
+							<h2 className={"hero__title"} data-aos-delay="50" data-aos="zoom-in-down">
 								What are Machine Elves?
 							</h2>
-							<p className={"hero--description"} data-aos-delay="250" data-aos="zoom-in-down">
+							<p className={"hero__description"} data-aos-delay="250" data-aos="zoom-in-down">
 								Illustrated by <strong>Jups</strong> (Past clients: <strong>Marvel and Sony Animation</strong>)
 							</p>
-							<p className={"hero--description"} data-aos-delay="400" data-aos="zoom-in-down">
+							<p className={"hero__description"} data-aos-delay="400" data-aos="zoom-in-down">
 								<strong>Machine Elves</strong> are self-transforming <strong>cross-dimensional entities</strong> of the fourth dimension and on - these
 								manically happy creatures communicate via visual sound waves that pour out of their mouths like shiny
 								rainbow cartoon captions. People can't hear them with their ears - they see the waves with their eyes as
 								the elves unlock <strong>JUNK DNA</strong> that interprets the metaversal lessons that ascend all to web3 paradise.
 							</p>
-							{/*<p className={"hero--description"} data-aos-delay="500" data-aos="zoom-in-down">*/}
+							{/*<p className={"hero__description"} data-aos-delay="500" data-aos="zoom-in-down">*/}
 							{/*	5,555 will mint on Ethereum blockchain – to induct the collective into the web3 way of life. A*/}
 							{/*	decentralized paradise free of centralized shackles.*/}
 							{/*</p>*/}

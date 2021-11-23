@@ -15,17 +15,17 @@ const About = () => {
 					opacity = 0
 				}
 			}
-			document.querySelector('.about--container-bg').style.opacity = opacity;
+			document.querySelector('.about__container-bg').style.opacity = opacity;
 			
 		});
 	}, [])
 	return (
 			<div className={"about"}>
-				<div id={"about"} className={"about--container text-white"}>
-					<div className={"about--container-bg"}/>
-					<div className={"about--wrapper d-flex flex-column justify-content-center align-items-start align-items-sm-center py-5"}>
-						<h1 className={"about--title mb-4"}>ENTER MACHINE ELVES</h1>
-						<p className={"about--description"}>
+				<div id={"about"} className={"about__container text-white"}>
+					<div className={"about__container-bg"}/>
+					<div className={"about__wrapper d-flex flex-column justify-content-center align-items-start align-items-sm-center py-5"}>
+						<h1 className={"about__title mb-4"}>ENTER MACHINE ELVES</h1>
+						<p className={"about__description"}>
 							<strong>History’s astrophysicist</strong> greats, Carl Sagan & Neil DeGrasse Tyson have given
 							synonymous takes on
 							higher dimensional objects and how they work. If a <strong>fourth dimensional</strong> object were to
@@ -37,13 +37,13 @@ const About = () => {
 							principle minded folks clash with those who mistake their narrow minds with logic based disbelief grounded
 							by the scientific method.
 						</p>
-						<p className={"about--description"}>
+						<p className={"about__description"}>
 							<strong>Machine Elves</strong> are here to balloon holders up to <strong>higher dimensions</strong> to see
 							all. A glance behind the Wizard’s
 							curtain. For once the veil is lifted – the illusionist smirks uncomfortably. Shuffles back into the
 							shadows to pause and plot in a fury.
 						</p>
-						<p className={"about--description"}>
+						<p className={"about__description"}>
 							The Machine Elves show how to abandon centralized systems in favor of equal footing. As these green
 							pastures are <strong>advantageous</strong> to all; not only the select few.
 						</p>

@@ -3,9 +3,9 @@ import '../assets/css/Roadmap.css';
 function Roadmap(props) {
 	return (
 			<div id={"roadmap"} className={"roadmap"}>
-				<div className={"roadmap--container mb-5"}>
-					<h1 className={"roadmap--title mb-4"}>The Roadmap</h1>
-					<p className={"roadmap--description mb-5"}>
+				<div className={"roadmap__container mb-5"}>
+					<h1 className={"roadmap__title mb-4"}>The Roadmap</h1>
+					<p className={"roadmap__description mb-5"}>
 						Each Machine Elf comes with the privilege of first access to <strong>DEFI</strong> related protocols
 						integrated throughout
 						the <strong>LEAPNVERSE</strong>. Machine Elf holders will be whitelisted for LeapN's upcoming Next Gen Plots
@@ -20,9 +20,9 @@ function Roadmap(props) {
 					</p>
 				</div>
 				<div className={"timeline"}>
-					<div className={"timeline--left"}>
-						<div className={"timeline--left-container"}>
-							<div className={"timeline--left-wrapper"}>
+					<div className={"timeline__left"}>
+						<div className={"timeline__left-container"}>
+							<div className={"timeline__left-wrapper"}>
 								<strong>November 29, 2021</strong>
 								<br/>
 								<br/>
@@ -31,9 +31,9 @@ function Roadmap(props) {
 							</div>
 						</div>
 					</div>
-					<div className={"timeline--right"}>
-						<div className="timeline--right-container">
-							<div className={"timeline--right-wrapper"}>
+					<div className={"timeline__right"}>
+						<div className="timeline__right-container">
+							<div className={"timeline__right-wrapper"}>
 								<img src={require("../assets/images/UseThis2.png").default} alt="" className="img-fluid"
 								     loading={"lazy"}/>
 								<div className={"mb-3"}>
@@ -50,9 +50,9 @@ function Roadmap(props) {
 					</div>
 				</div>
 				<div className={"timeline"}>
-					<div className={"timeline--left"}>
-						<div className={"timeline--left-container"}>
-							<div className={"timeline--left-wrapper"}>
+					<div className={"timeline__left"}>
+						<div className={"timeline__left-container"}>
+							<div className={"timeline__left-wrapper"}>
 								<strong>December 2, 2021</strong>
 								<br/>
 								<br/>
@@ -61,9 +61,9 @@ function Roadmap(props) {
 							</div>
 						</div>
 					</div>
-					<div className={"timeline--right"}>
-						<div className="timeline--right-container">
-							<div className={"timeline--right-wrapper"}>
+					<div className={"timeline__right"}>
+						<div className="timeline__right-container">
+							<div className={"timeline__right-wrapper"}>
 								<img src={require("../assets/images/UseThis4.png").default} alt="" className="img-fluid"
 								     loading={"lazy"}/>
 								<div className={"mb-3"}>
@@ -89,9 +89,9 @@ function Roadmap(props) {
 					</div>
 				</div>
 				<div className={"timeline"}>
-					<div className={"timeline--left"}>
-						<div className={"timeline--left-container"}>
-							<div className={"timeline--left-wrapper"}>
+					<div className={"timeline__left"}>
+						<div className={"timeline__left-container"}>
+							<div className={"timeline__left-wrapper"}>
 								<strong>December 6th, 2021
 								</strong>
 								<br/>
@@ -101,9 +101,9 @@ function Roadmap(props) {
 							</div>
 						</div>
 					</div>
-					<div className={"timeline--right"}>
-						<div className="timeline--right-container">
-							<div className={"timeline--right-wrapper"}>
+					<div className={"timeline__right"}>
+						<div className="timeline__right-container">
+							<div className={"timeline__right-wrapper"}>
 								<div className={"mb-3"}>
 									<strong>December 6th, 2021 @ noon PST: </strong>
 									<ul className={"ps-3"}>
@@ -128,16 +128,16 @@ function Roadmap(props) {
 					</div>
 				</div>
 				<div className={"timeline"}>
-					<div className={"timeline--left"}>
-						<div className={"timeline--left-container"}>
-							<div className={"timeline--left-wrapper"}>
+					<div className={"timeline__left"}>
+						<div className={"timeline__left-container"}>
+							<div className={"timeline__left-wrapper"}>
 								<strong>Ongoing</strong>
 							</div>
 						</div>
 					</div>
-					<div className={"timeline--right"}>
-						<div className="timeline--right-container">
-							<div className={"timeline--right-wrapper"}>
+					<div className={"timeline__right"}>
+						<div className="timeline__right-container">
+							<div className={"timeline__right-wrapper"}>
 								<img src={require("../assets/images/UseThis.png").default} alt="" className="img-fluid"
 								     loading={"lazy"}/>
 								<p>

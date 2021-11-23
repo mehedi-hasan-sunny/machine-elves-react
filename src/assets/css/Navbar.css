@@ -12,26 +12,26 @@
     color: white;
 }
 
-.navbar--brand {
+.navbar__brand {
     font-family: "Archivo", 'Montserrat', sans-serif;
     font-size: 1.5rem;
     font-weight: bold;
     padding-right: 0.5rem;
 }
 
-.navbar--links {
+.navbar__links {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.navbar--menu {
+.navbar__menu {
     display: none;
     height: 50px;
     width: 50px;
 }
 
-.navbar--menu:before {
+.navbar__menu:before {
     content: " ";
     box-shadow: 0 -9px #fff, 0 9px #fff;
     height: 3px;
@@ -43,7 +43,7 @@
     background: #fff;
 }
 
-.navbar--link {
+.navbar__link {
     font-weight: 600;
     padding: 1rem;
 }
@@ -66,12 +66,12 @@
     display: flex;
 }
 
-#sidebar .navbar--links {
+#sidebar .navbar__links {
     width: 100%;
     justify-content: flex-start;
 }
 
-#sidebar .navbar--link {
+#sidebar .navbar__link {
     width: 100%;
 }
 
@@ -80,15 +80,15 @@
         padding: 0.25rem 1rem;
     }
 
-    .navbar--brand {
+    .navbar__brand {
         font-size: 1.25rem;
     }
 
-    .navbar--links {
+    .navbar__links {
         flex-direction: column;
     }
 
-    .navbar--menu {
+    .navbar__menu {
         display: inline-block;
     }
 }

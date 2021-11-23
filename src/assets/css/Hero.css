@@ -15,19 +15,19 @@
     min-height: 38vh;
 }
 
-.hero--container {
+.hero__container {
     height: 100%;
     padding: 1rem 0;
 }
 
-.hero--img {
+.hero__img {
     position: absolute;
     max-width: 40rem;
     bottom: 0;
     will-change: left;
 }
 
-.hero--img:nth-of-type(1) {
+.hero__img:nth-of-type(1) {
     z-index: 1;
     left: -35%;
     transform: translateX(-50%);
@@ -37,7 +37,7 @@
     animation-delay: 0.25s;
 }
 
-.hero--img:nth-of-type(2) {
+.hero__img:nth-of-type(2) {
     z-index: 2;
     left: -35%;
     transform: translateX(5%);
@@ -47,7 +47,7 @@
     animation-delay: 0.45s;
 }
 
-.hero--img:nth-of-type(3) {
+.hero__img:nth-of-type(3) {
     z-index: 3;
     left: -35%;
     transform: translateX(-90%);
@@ -58,7 +58,7 @@
 
 }
 
-.hero--title {
+.hero__title {
     font-size: 3.25rem;
     line-height: 3.5rem;
     font-weight: 900;
@@ -68,7 +68,7 @@
     margin-bottom: 2rem;
 }
 
-.hero--description {
+.hero__description {
     font-size: 1.25rem;
     line-height: 1.75rem;
     color: #f5f5f5;
@@ -76,20 +76,20 @@
     z-index: 9;
 }
 
-/*.hero--description:nth-last-of-type(1) {*/
+/*.hero__description:nth-last-of-type(1) {*/
 /*    font-size: 1rem;*/
 /*    font-weight: 200;*/
 /*}*/
 
 
 @media screen and (max-width: 991px) {
-    .hero--title {
+    .hero__title {
         font-size: 3rem;
         line-height: 3.5rem;
         max-width: 30rem;
     }
 
-    .hero--description {
+    .hero__description {
         font-size: 1.35rem;
         line-height: 1.5rem;
     }
@@ -97,19 +97,19 @@
 }
 
 @media screen and (max-width: 767px) {
-    .hero--title {
+    .hero__title {
         font-size: 2.75rem;
         line-height: 3.25rem;
     }
 
-    .hero--description {
+    .hero__description {
         font-size: 1.25rem;
         line-height: 1.5rem;
     }
 }
 
-@media screen and (max-width: 441px) {
-    .hero--title {
+@media screen and (max-width: 575px) {
+    .hero__title {
         text-align: left;
         font-size: 2.25rem;
         line-height: 3rem;

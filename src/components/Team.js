@@ -2,10 +2,10 @@ import '../assets/css/Team.css';
 
 const TeamCard = ({imgSrc, name, designation, job, twitterHandle = null}) => {
 	return (
-			<div className={"team--card mb-3"}>
-				<img src={imgSrc} alt="" className={"img-fluid team--card-img"} loading={"lazy"}/>
+			<div className={"team__card mb-3"}>
+				<img src={imgSrc} alt="" className={"img-fluid team__card-img"} loading={"lazy"}/>
 				<div className={"py-3"}>
-					<h4 className={"team--card-title"}>{name} - {designation}</h4>
+					<h4 className={"team__card-title"}>{name} - {designation}</h4>
 					<p className={"white m-0"}>
 						{job}
 					</p>
@@ -72,7 +72,7 @@ const Team = () => {
 	return (
 			<div id={"team"} className={"team text-white"}>
 				<div className={"container h-100"}>
-					<h1 className={"team--title text-center py-5"}>The Team</h1>
+					<h1 className={"team__title text-center py-5"}>The Team</h1>
 					<div className={"row  justify-content-center"}>
 						{
 							teamMembers.map((teamMember, index) => {

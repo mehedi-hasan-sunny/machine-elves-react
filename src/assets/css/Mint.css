@@ -9,31 +9,31 @@
     flex-direction: column;
 }
 
-.mint--container{
+.mint__container{
     max-width: 45rem;
 }
-.mint--title {
+.mint__title {
     font-size: 3rem;
     line-height: 3rem;
     font-weight: 900;
 }
-.mint--description {
+.mint__description {
     font-size: 1.25rem;
     line-height: 1.75rem;
     margin-top: 0;
 }
 
-.mint--discord-icon{
+.mint__discord-icon{
     height: 20rem;
     margin-bottom: 3rem;
 }
 
 @media screen and (max-width: 991px){
-    .mint--title {
+    .mint__title {
         font-size: 2.5rem;
-        line-height: 2.5rem;
+        line-height: 3rem;
     }
-    .mint--description {
+    .mint__description {
         font-size: 1.35rem;
         line-height: 1.5rem;
     }
@@ -44,15 +44,15 @@
         height: auto;
         min-height: 100vh;
     }
-    .mint--title {
+    .mint__title {
         font-size: 2rem;
-        line-height: 2rem;
+        line-height: 2.75rem;
     }
-    .mint--description {
+    .mint__description {
         font-size: 1.25rem;
         line-height: 1.5rem;
     }
-    .mint--discord-icon {
+    .mint__discord-icon {
         height: 15rem;
     }
 }

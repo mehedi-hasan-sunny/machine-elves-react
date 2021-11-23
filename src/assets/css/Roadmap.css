@@ -8,18 +8,18 @@
     flex-direction: column;
 }
 
-.roadmap--container {
+.roadmap__container {
     max-width: 45rem;
     margin: auto;
 }
 
-.roadmap--title {
+.roadmap__title {
     font-size: 3rem;
     line-height: 3rem;
     font-weight: 900;
 }
 
-.roadmap--description {
+.roadmap__description {
     font-size: 1.25rem;
     line-height: 1.75rem;
     margin-top: 0;
@@ -30,30 +30,30 @@
     justify-content: center;
 }
 
-.timeline--left {
+.timeline__left {
     display: flex;
     border-right: 5px solid #a23ddf;
     padding-top: 3rem;
     font-size: 1.25rem;
 }
-.timeline--right {
+.timeline__right {
     padding-top: 3rem;
     padding-bottom: 3rem;
 }
 
-.timeline--left-container, .timeline--right-container{
+.timeline__left-container, .timeline__right-container{
     position: relative;
     width: 38vw;
     max-width: 29rem;
     display: block;
 }
-.timeline--left-wrapper{
+.timeline__left-wrapper{
     position: sticky;
     top: 35%;
     padding-right: 3rem;
     padding-bottom: 3rem;
 }
-.timeline--left-wrapper:after{
+.timeline__left-wrapper:after{
     content: " ";
     width: 10px;
     height: 10px;
@@ -64,12 +64,12 @@
     border: 1.15em solid;
     border-color: transparent transparent transparent #62f58c ;
 }
-.timeline:last-of-type .timeline--left-wrapper:after{
+.timeline:last-of-type .timeline__left-wrapper:after{
     top: 0;
     transform: translateY(-25%);
 }
 
-.timeline--right-wrapper{
+.timeline__right-wrapper{
     padding-left: 3rem;
     line-height: 1.5;
 }
@@ -81,12 +81,12 @@
 
 @media screen and (max-width: 991px) {
 
-    .roadmap--title {
+    .roadmap__title {
         font-size: 2.5rem;
-        line-height: 2.5rem;
+        line-height: 3rem;
     }
 
-    .roadmap--description {
+    .roadmap__description {
         font-size: 1.35rem;
         line-height: 1.5rem;
     }
@@ -99,25 +99,25 @@
         min-height: 100vh;
     }
 
-    .roadmap--title {
+    .roadmap__title {
         font-size: 2rem;
-        line-height: 2rem;
+        line-height: 2.75rem;
     }
 
-    .roadmap--description {
+    .roadmap__description {
         font-size: 1.25rem;
         line-height: 1.5rem;
     }
 
 
-    .timeline--right {
+    .timeline__right {
         max-width: 100%;
 
     }
-    .timeline--right-wrapper{
+    .timeline__right-wrapper{
         padding-left: 1.5rem;
     }
-    .timeline--left-wrapper:after {
+    .timeline__left-wrapper:after {
         right: -16.5%;
     }
 }
@@ -127,30 +127,25 @@
         min-height: 100vh;
     }
 
-    .roadmap--title {
-        font-size: 2rem;
-        line-height: 2rem;
-    }
-
-    .roadmap--description {
+    .roadmap__description {
         font-size: 1.25rem;
         line-height: 1.5rem;
     }
     .timeline {
         flex-direction: column;
     }
-    .timeline--left {
+    .timeline__left {
         border-right: 0;
         padding-bottom: 1rem;
     }
-    .timeline--right {
+    .timeline__right {
         max-width: 100%;
 
     }
-    .timeline--right-wrapper{
+    .timeline__right-wrapper{
         padding: 0;
     }
-    .timeline--left-wrapper:after{
+    .timeline__left-wrapper:after{
         top: auto;
         bottom: -25%;
         transform: translateX(calc(-50% + 3rem));
@@ -158,12 +153,12 @@
         border-color: #62f58c transparent transparent transparent ;
     }
 
-    .timeline:last-of-type .timeline--left-wrapper:after{
+    .timeline:last-of-type .timeline__left-wrapper:after{
         top: auto;
         transform: translateX(calc(-50% + 3rem));
     }
 
-    .timeline--left-container, .timeline--right-container{
+    .timeline__left-container, .timeline__right-container{
         width: 100%;
     }
 }

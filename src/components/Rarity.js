@@ -3,9 +3,9 @@ import '../assets/css/Rarity.css';
 function Rarity(props) {
 	return (
 			<div id={"rarity"} className={"rarity"}>
-				<div className={"rarity--container"}>
-					<h1 className={"rarity--title mb-4"}>Rarity</h1>
-					<p className={"rarity--description"}>
+				<div className={"rarity__container"}>
+					<h1 className={"rarity__title mb-4"}>Rarity</h1>
+					<p className={"rarity__description"}>
 						Machine Elves are computer generated from 200+ hand drawn traits, each Machine Elf consists of between 4-7
 						combined traits, of various rarities.
 						<br/>
@@ -13,19 +13,19 @@ function Rarity(props) {
 						The possibilities are endless, just like yours once you ascend up and away from this noisy third dimension.
 					</p>
 					<h3 className="mb-2">BEING</h3>
-					<p className={"rarity--description"}>
+					<p className={"rarity__description"}>
 						4th-6th dimension:
 						<br/>
 						2D avatar: <strong>0.08 eth</strong>
 					</p>
 					<h3 className="mb-2">GUIDE</h3>
-					<p className={"rarity--description"}>
+					<p className={"rarity__description"}>
 						5th-7th dimension:
 						<br/>
 						2D avatar + 3D avatar: <strong>0.16 eth</strong>
 					</p>
 					<h3 className="mb-2">ARBITER</h3>
-					<p className={"rarity--description"}>
+					<p className={"rarity__description"}>
 						6th-8th dimension:
 						<br/>
 						2D avatar + 3D avatar + AR/Facial mapping : <strong>0.21 eth</strong>

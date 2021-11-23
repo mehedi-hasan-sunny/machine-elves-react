@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 
 const NavLinks = ({isMobile}) => {
 	return (
-			<div className={`navbar--links`} data-aos={isMobile ? "slide-left" : ''}>
-				<a href="#about" className={"navbar--link"}>About</a>
-				<a href="#rarity" className={"navbar--link"}>Rarity</a>
-				<a href="#roadmap" className={"navbar--link"}>Roadmap</a>
-				<a href="#mint" className={"navbar--link"}>Mint</a>
-				<a href="#team" className={"navbar--link"}>Team</a>
+			<div className={`navbar__links`} data-aos={isMobile ? "slide-left" : ''}>
+				<a href="#about" className={"navbar__link"}>About</a>
+				<a href="#rarity" className={"navbar__link"}>Rarity</a>
+				<a href="#roadmap" className={"navbar__link"}>Roadmap</a>
+				<a href="#mint" className={"navbar__link"}>Mint</a>
+				<a href="#team" className={"navbar__link"}>Team</a>
 			</div>
 	);
 }

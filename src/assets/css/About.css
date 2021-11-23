@@ -3,7 +3,7 @@
     min-height: 300vh;
 }
 
-.about--container {
+.about__container {
     position: sticky;
     top: 0;
     overflow: hidden;
@@ -12,7 +12,7 @@
     background-image: radial-gradient(circle at 50% 50%, #42595d, #1b1b1b);
 }
 
-.about--container-bg {
+.about__container-bg {
     position: absolute;
     top: 0;
     width: 100%;
@@ -24,66 +24,58 @@
     opacity: 0;
     will-change: opacity;
 }
-.about--wrapper{
+.about__wrapper{
     max-width: 47rem;
     margin: auto;
     min-height: 100vh;
     padding: 0 1rem;
 }
-.about--title {
+.about__title {
     font-size: 2.5rem;
     line-height: 2.5rem;
     font-weight: 900;
     z-index: 1;
 }
 
-.about--description {
-    font-size: 1rem;
-    line-height: 1.5rem;
+.about__description {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
     position: relative;
     z-index: 9;
 }
 
-.about--img-wrapper {
+.about__img-wrapper {
     position: absolute;
     bottom: 0;
     text-align: center;
 }
 
-.about--img-wrapper img {
+.about__img-wrapper img {
     width: 70vw;
     max-width: 40rem;
 }
 
 @media screen and (max-width: 991px) {
-    .about--title {
+    .about__title {
         font-size: 2.25rem;
         line-height: 3rem;
     }
-
-    .about--description {
-        font-size: 1.25rem;
+    .about__description {
         line-height: 1.5rem;
     }
-
 }
 
 @media screen and (max-width: 767px) {
 
-    .about--container-bg {
+    .about__container-bg {
         background-position: 0 0, 35% 50%;
     }
-    .about--title {
-        font-size: 1.75rem;
-        line-height: 1.75rem;
+    .about__title {
+        font-size: 2rem;
+        line-height: 2.75rem;
     }
 
-    .about--description {
-        font-size: 1rem;
-        line-height: 1.35rem;
-    }
-
-    .about--img-wrapper {
+    .about__img-wrapper {
         position: relative;
         bottom: 0;
     }

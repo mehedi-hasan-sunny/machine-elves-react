@@ -3,25 +3,28 @@
     background-color: #171717;
 }
 
-.team--title {
+.team__title {
     font-size: 2.5rem;
     line-height: 3rem;
     font-weight: 900;
 }
 
-.team--card {
+.team__card {
     overflow: hidden;
     height: calc(100% - 1rem);
 }
-.team--card-title{
+
+.team__card-title {
     font-size: 1.15rem;
     line-height: 1.5;
 }
-.team--card p {
+
+.team__card p {
     line-height: 1.5;
     min-height: 7.5rem;
 }
-.team--card-img{
+
+.team__card-img {
     max-height: 22rem;
     width: 100%;
     object-fit: cover;
@@ -29,11 +32,18 @@
 }
 
 @media screen and (max-width: 767px) {
-    .team--card-title{
+
+    .team__title {
+        font-size: 2rem;
+        line-height: 2.75rem;
+    }
+
+    .team__card-title {
         font-size: 1.05rem;
         line-height: 1.5;
     }
-    .team--card p {
+
+    .team__card p {
         min-height: 100%;
     }
 }
