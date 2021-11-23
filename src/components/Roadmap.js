@@ -69,7 +69,7 @@ function Roadmap(props) {
 								<div className={"mb-3"}>
 									<strong>December 2</strong>
 									<ul className={"ps-3"}>
-										<li>LEAPN Founders Deed Holders Mint (Free + gas) November 27</li>
+										<li>LEAPN Founders Deed Holders Mint (Free + gas)</li>
 									</ul>
 								</div>
 								<div className={"mb-3"}>

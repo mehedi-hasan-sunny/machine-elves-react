@@ -90,7 +90,7 @@
     }
 
     .hero--description {
-        font-size: 1.05rem;
+        font-size: 1.35rem;
         line-height: 1.5rem;
     }
 
@@ -103,7 +103,7 @@
     }
 
     .hero--description {
-        font-size: 1rem;
+        font-size: 1.25rem;
         line-height: 1.5rem;
     }
 }
@@ -113,11 +113,6 @@
         text-align: left;
         font-size: 2.25rem;
         line-height: 3rem;
-    }
-
-    .hero--description {
-        font-size: 1.25rem;
-        line-height: 1.5rem;
     }
 }
 

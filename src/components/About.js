@@ -23,7 +23,7 @@ const About = () => {
 			<div className={"about"}>
 				<div id={"about"} className={"about--container text-white"}>
 					<div className={"about--container-bg"}/>
-					<div className={"about--wrapper d-flex flex-column justify-content-center align-items-center py-5"}>
+					<div className={"about--wrapper d-flex flex-column justify-content-center align-items-start align-items-sm-center py-5"}>
 						<h1 className={"about--title mb-4"}>ENTER MACHINE ELVES</h1>
 						<p className={"about--description"}>
 							<strong>History’s astrophysicist</strong> greats, Carl Sagan & Neil DeGrasse Tyson have given
@@ -35,10 +35,11 @@ const About = () => {
 							non-happening and repress the sight of the object appearing and vanishing instantly from memory. Whilst a
 							separate person may perceive the moment for what it could be with no need of ‘proof.’ Astrophysical
 							principle minded folks clash with those who mistake their narrow minds with logic based disbelief grounded
-							grounded by the scientific method.
+							by the scientific method.
 						</p>
 						<p className={"about--description"}>
-							<strong>Machine Elves</strong> are here to balloon holders up to <strong>higher dimensions</strong> to see all. A glance behind the Wizard’s
+							<strong>Machine Elves</strong> are here to balloon holders up to <strong>higher dimensions</strong> to see
+							all. A glance behind the Wizard’s
 							curtain. For once the veil is lifted – the illusionist smirks uncomfortably. Shuffles back into the
 							shadows to pause and plot in a fury.
 						</p>

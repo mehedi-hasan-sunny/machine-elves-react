@@ -87,8 +87,8 @@
     }
 
     .roadmap--description {
-        font-size: 1.15rem;
-        line-height: 1.15rem;
+        font-size: 1.35rem;
+        line-height: 1.5rem;
     }
 
 }
@@ -105,8 +105,36 @@
     }
 
     .roadmap--description {
-        font-size: 1rem;
-        line-height: 1rem;
+        font-size: 1.25rem;
+        line-height: 1.5rem;
+    }
+
+
+    .timeline--right {
+        max-width: 100%;
+
+    }
+    .timeline--right-wrapper{
+        padding-left: 1.5rem;
+    }
+    .timeline--left-wrapper:after {
+        right: -16.5%;
+    }
+}
+@media screen and (max-width: 575px) {
+    .roadmap {
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .roadmap--title {
+        font-size: 2rem;
+        line-height: 2rem;
+    }
+
+    .roadmap--description {
+        font-size: 1.25rem;
+        line-height: 1.5rem;
     }
     .timeline {
         flex-direction: column;
@@ -123,9 +151,18 @@
         padding: 0;
     }
     .timeline--left-wrapper:after{
-        content: none;
-        border: 0;
+        top: auto;
+        bottom: -25%;
+        transform: translateX(calc(-50% + 3rem));
+        right: 50%;
+        border-color: #62f58c transparent transparent transparent ;
     }
+
+    .timeline:last-of-type .timeline--left-wrapper:after{
+        top: auto;
+        transform: translateX(calc(-50% + 3rem));
+    }
+
     .timeline--left-container, .timeline--right-container{
         width: 100%;
     }

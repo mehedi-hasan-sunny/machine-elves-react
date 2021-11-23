@@ -27,8 +27,8 @@
         line-height: 2.5rem;
     }
     .rarity--description {
-        font-size: 1.15rem;
-        line-height: 1.15rem;
+        font-size: 1.35rem;
+        line-height: 1.5rem;
     }
 
 }
@@ -42,7 +42,20 @@
         line-height: 2rem;
     }
     .rarity--description {
-        font-size: 1rem;
-        line-height: 1rem;
+        font-size: 1.25rem;
+        line-height: 1.5rem;
+    }
+}
+@media screen and (max-width: 575px){
+    .rarity--description .row .col-4{
+        font-size: 1.1rem;
+        line-height: 1.5rem;
+    }
+}
+
+@media screen and (max-width: 350px){
+    .rarity--description .row .col-4{
+        font-size: 0.9rem;
+        line-height: 1.35rem;
     }
 }

@@ -57,12 +57,12 @@
 
 @media screen and (max-width: 991px) {
     .about--title {
-        font-size: 2rem;
-        line-height: 2rem;
+        font-size: 2.25rem;
+        line-height: 3rem;
     }
 
     .about--description {
-        font-size: 1.05rem;
+        font-size: 1.25rem;
         line-height: 1.5rem;
     }
 
@@ -86,5 +86,10 @@
     .about--img-wrapper {
         position: relative;
         bottom: 0;
+    }
+}
+@media screen and (max-width: 575px){
+    .about {
+        min-height: 200vh;
     }
 }

@@ -14,33 +14,33 @@ function Rarity(props) {
 					</p>
 					<h3 className="mb-2">BEING</h3>
 					<p className={"rarity--description"}>
-						4th-6th dimension: .1
+						4th-6th dimension:
 						<br/>
 						2D avatar: <strong>0.08 eth</strong>
 					</p>
 					<h3 className="mb-2">GUIDE</h3>
 					<p className={"rarity--description"}>
-						5th-7th dimension: .2
+						5th-7th dimension:
 						<br/>
 						2D avatar + 3D avatar: <strong>0.16 eth</strong>
 					</p>
 					<h3 className="mb-2">ARBITER</h3>
 					<p className={"rarity--description"}>
-						6th-8th dimension: .25
+						6th-8th dimension:
 						<br/>
 						2D avatar + 3D avatar + AR/Facial mapping : <strong>0.21 eth</strong>
 						
 						<div className="row mt-4">
 							<div className="col-4">
 								<div className={"d-flex align-items-center justify-space-between w-100"}>
-									<strong>4th dimension</strong> <i className="gg-chevron-right ms-auto me-3"/>
+									<strong>4th dimension</strong> <i className="gg-chevron-right ms-3 ms-md-auto me-0 me-md-3"/>
 								</div>
 								<br/>
 								Common
 							</div>
 							<div className="col-4">
 								<div className={"d-flex align-items-center justify-space-between w-100"}>
-									<strong>7th dimension</strong> <i className="gg-chevron-right ms-auto me-3"/>
+									<strong>7th dimension</strong> <i className="gg-chevron-right ms-3 ms-md-auto me-0 me-md-3"/>
 								</div>
 								<br/>
 								Rare
