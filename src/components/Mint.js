@@ -6,9 +6,8 @@ function Mint(props) {
 				<div className={"mint--container mb-5"}>
 					<h1 className={"mint--title mb-4"}>Fair Distribution</h1>
 					<p className={"mint--description mb-5"}>
-						No bonding curves, all 5,555 Machine Elves cost either .1 ETH, .2 ETH, .25 ETH, or – for each LEAPN Founders
-						Deed holder, one free elf total plus the cost of gas. Machine Elves will be revealed once 100% of minting is
-						complete.
+						No bonding curves, all 5,555 Machine Elves cost either 0.08 ETH, 0.16 ETH, or 0.21 ETH. Machine Elves will
+						be revealed once 100% of minting is complete.
 					</p>
 				</div>
 				<div className={"mint--container mb-5"}>
@@ -18,22 +17,23 @@ function Mint(props) {
 						<br/>
 						<br/>
 						Machine Elves is committed to our community and on-going expansion of the Machine Elves world within LeapN
-						to educate society on the advantages of participating in decentralized defi protocols.
+						to educate society on the advantages of participating in decentralized web3 protocols.
 					</p>
 				</div>
-				<img src="/discord-icon.svg"  alt="discord icon" className={"mint--discord-icon"} data-aos="zoom-in-down" data-aos-offset="50" loading={"lazy"}/>
+				<img src="/discord-icon.svg" alt="discord icon" className={"mint--discord-icon"} data-aos="zoom-in-down"
+				     data-aos-offset="50" loading={"lazy"}/>
 				<div className={"mint--container mb-5"} data-aos="zoom-in-down" data-aos-offset="-10">
-					<h1 className={"mb-4"} >
+					<h1 className={"mb-4"}>
 						Join our Discord for giveaways, updates, and to join the Machine Elves community.
 					</h1>
 					<p className={"mint--description mb-5"}>
-						<a href="#" className={"btn btn-outline"}>Discord</a>
+						<a href="#" className={"btn btn-outline"}>Coming Soon</a>
 					</p>
 				</div>
 				<div className={"mint--container"} data-aos="zoom-in-down" data-aos-offset="-10">
-					<h2 className={"mb-4"}>Public Sale Begins November 30th at noon PST</h2>
+					<h2 className={"mb-4"}>Public Sale Begins December 6th at noon PST</h2>
 					<p className={"mint--description"}>
-						<a href="#" className={"btn btn-outline"}>Start Minting</a>
+						<a href="#" className={"btn btn-outline"}>Coming Soon</a>
 					</p>
 				</div>
 			

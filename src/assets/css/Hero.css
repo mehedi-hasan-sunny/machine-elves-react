@@ -72,14 +72,14 @@
     font-size: 1.25rem;
     line-height: 1.75rem;
     color: #f5f5f5;
-    max-width: 32rem;
+    max-width: 34rem;
     z-index: 9;
 }
 
-.hero--description:nth-last-of-type(1) {
-    font-size: 1rem;
-    font-weight: 200;
-}
+/*.hero--description:nth-last-of-type(1) {*/
+/*    font-size: 1rem;*/
+/*    font-weight: 200;*/
+/*}*/
 
 
 @media screen and (max-width: 991px) {

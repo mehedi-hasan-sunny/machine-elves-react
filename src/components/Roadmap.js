@@ -8,34 +8,42 @@ function Roadmap(props) {
 					<p className={"roadmap--description mb-5"}>
 						Each Machine Elf comes with the privilege of first access to <strong>DEFI</strong> related protocols
 						integrated throughout
-						the <strong>LEAPNVERSE</strong>. This includes gamified staking and pooling and play to earn mechanics.
+						the <strong>LEAPNVERSE</strong>. Machine Elf holders will be whitelisted for LeapN's upcoming Next Gen Plots
+						Collection.
+						Each holder receives an <strong>ASCENDED BADGE</strong> in LeapN, which lights up the player's avatar
+						username during
+						gameplay. Machine Elf holders will be eternally recognized when they enter a world due to having a username
+						that glows.
+						Each holder will receive a 3D asset token that reads $ELF. So long as they hold their Machine ELf NFT, this
+						$ELF token enables each holder to receive more $PORTAL upon playing and participating in the LeapN
+						multiverse. $PORTAL is LeapN's native currency
 					</p>
 				</div>
 				<div className={"timeline"}>
 					<div className={"timeline--left"}>
 						<div className={"timeline--left-container"}>
 							<div className={"timeline--left-wrapper"}>
-								<strong>November 22, 2021</strong>
+								<strong>November 29, 2021</strong>
 								<br/>
 								<br/>
 								<br/>
 								<strong>Mint Pass Quest</strong>
-								<br/>
-								<br/>
-								(In Discord. 100 Mint Passes available)
 							</div>
 						</div>
 					</div>
 					<div className={"timeline--right"}>
 						<div className="timeline--right-container">
 							<div className={"timeline--right-wrapper"}>
-								<img src={require("../assets/images/UseThis2.png").default} alt="" className="img-fluid" loading={"lazy"}/>
+								<img src={require("../assets/images/UseThis2.png").default} alt="" className="img-fluid"
+								     loading={"lazy"}/>
 								<div className={"mb-3"}>
-									<strong>November 22 begin, finish November 25 at 9pm:</strong>
-									<ul className={"ps-3"}>
-										<li>Mint Pass Quest begins</li>
-										<li>100 Mint Pass Quest winners Mint</li>
-									</ul>
+									<strong>November 29 - Mint pass quest begins</strong>
+									<br/>
+									<br/>
+									<strong>December 1 @ 5pm pst - Mint pass quest ends </strong>
+									<br/>
+									<br/>
+									<strong>December 2 @ 10am pst - Mint Pass Quest winners start minting</strong>
 								</div>
 							</div>
 						</div>
@@ -45,7 +53,7 @@ function Roadmap(props) {
 					<div className={"timeline--left"}>
 						<div className={"timeline--left-container"}>
 							<div className={"timeline--left-wrapper"}>
-								<strong>November 26, 2021</strong>
+								<strong>December 2, 2021</strong>
 								<br/>
 								<br/>
 								<br/>
@@ -56,23 +64,24 @@ function Roadmap(props) {
 					<div className={"timeline--right"}>
 						<div className="timeline--right-container">
 							<div className={"timeline--right-wrapper"}>
-								<img src={require("../assets/images/UseThis4.png").default} alt="" className="img-fluid" loading={"lazy"}/>
+								<img src={require("../assets/images/UseThis4.png").default} alt="" className="img-fluid"
+								     loading={"lazy"}/>
 								<div className={"mb-3"}>
-									<strong>November 26</strong>
+									<strong>December 2</strong>
 									<ul className={"ps-3"}>
 										<li>LEAPN Founders Deed Holders Mint (Free + gas) November 27</li>
 									</ul>
 								</div>
 								<div className={"mb-3"}>
-									<strong>November 27</strong>
+									<strong>December 3</strong>
 									<ul className={"ps-3"}>
-										<li>Ape Gang, Aurralia, MetaTravelers & StonedApez Whitelist Mint</li>
+										<li>Ape Gang, Aurallia, MetaTravelers & StonedApez Whitelist Mint</li>
 									</ul>
 								</div>
 								<div className={"mb-3"}>
-									<strong>November 28</strong>
+									<strong>December 4</strong>
 									<ul className={"ps-3"}>
-										<li>LeapN Next Gen PLOT Whitelist Mint</li>
+										<li>Next Gen PLOT should say 'LeapN Next Gen Plot: Alpha Mint Pass' holders start minting</li>
 									</ul>
 								</div>
 							</div>
@@ -83,7 +92,7 @@ function Roadmap(props) {
 					<div className={"timeline--left"}>
 						<div className={"timeline--left-container"}>
 							<div className={"timeline--left-wrapper"}>
-								<strong>November 30, 2021
+								<strong>December 6th, 2021
 								</strong>
 								<br/>
 								<br/>
@@ -96,7 +105,7 @@ function Roadmap(props) {
 						<div className="timeline--right-container">
 							<div className={"timeline--right-wrapper"}>
 								<div className={"mb-3"}>
-									<strong>November 30, 2021 @ noon PST: </strong>
+									<strong>December 6th, 2021 @ noon PST: </strong>
 									<ul className={"ps-3"}>
 										<li>Public Sale Mint</li>
 									</ul>
@@ -105,7 +114,8 @@ function Roadmap(props) {
 									* 25 randomly generated Machine Elves are being
 									reserved for marketing efforts and the team.
 								</p>
-								<img src={require("../assets/images/Landingpage.png").default} alt="" className="img-fluid" loading={"lazy"}/>
+								<img src={require("../assets/images/Landingpage.png").default} alt="" className="img-fluid"
+								     loading={"lazy"}/>
 								<p>
 									After all 5,555 Machine Elves have been minted,
 									one will be randomly selected as winner of a
@@ -128,7 +138,8 @@ function Roadmap(props) {
 					<div className={"timeline--right"}>
 						<div className="timeline--right-container">
 							<div className={"timeline--right-wrapper"}>
-								<img src={require("../assets/images/UseThis.png").default} alt="" className="img-fluid" loading={"lazy"}/>
+								<img src={require("../assets/images/UseThis.png").default} alt="" className="img-fluid"
+								     loading={"lazy"}/>
 								<p>
 									We will release POOL PORTALS for holders. Each
 									POOL PORTAL causes end users to leap into a

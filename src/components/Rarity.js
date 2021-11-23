@@ -6,33 +6,52 @@ function Rarity(props) {
 				<div className={"rarity--container"}>
 					<h1 className={"rarity--title mb-4"}>Rarity</h1>
 					<p className={"rarity--description"}>
-						Machine Elves are computer generated from 200+ hand drawn traits, each Machine Elf consists of between 4-7 combined traits, of various rarities.
+						Machine Elves are computer generated from 200+ hand drawn traits, each Machine Elf consists of between 4-7
+						combined traits, of various rarities.
 						<br/>
 						<br/>
 						The possibilities are endless, just like yours once you ascend up and away from this noisy third dimension.
 					</p>
-					<h3 className="mb-2">HIGH DIMENSION</h3>
+					<h3 className="mb-2">BEING</h3>
 					<p className={"rarity--description"}>
 						4th-6th dimension: .1
 						<br/>
-						2D avatar. To ‘Journey up’ at a later time for a 3D LeapN version will cost .12 ETH (3d avatar only) and .18 (3D avatar + AR w/ face mapping)
+						2D avatar: <strong>0.08 eth</strong>
 					</p>
-					<h3 className="mb-2">WOW DIMENSION</h3>
+					<h3 className="mb-2">GUIDE</h3>
 					<p className={"rarity--description"}>
 						5th-7th dimension: .2
 						<br/>
-						2D avatar + 3D avatar
+						2D avatar + 3D avatar: <strong>0.16 eth</strong>
 					</p>
-					<h3 className="mb-2">HOLY DIMENSION</h3>
+					<h3 className="mb-2">ARBITER</h3>
 					<p className={"rarity--description"}>
 						6th-8th dimension: .25
 						<br/>
-						2D avatar + 3D avatar + AR w/ face mapping
-					</p>
-					<p className={"rarity--description"}>
-						4th dimension–> 7th dimension  ->  8th dimension
-						<br/>
-						Common   ->          rare           ->      legendary
+						2D avatar + 3D avatar + AR/Facial mapping : <strong>0.21 eth</strong>
+						
+						<div className="row mt-4">
+							<div className="col-4">
+								<div className={"d-flex align-items-center justify-space-between w-100"}>
+									<strong>4th dimension</strong> <i className="gg-chevron-right ms-auto me-3"/>
+								</div>
+								<br/>
+								Common
+							</div>
+							<div className="col-4">
+								<div className={"d-flex align-items-center justify-space-between w-100"}>
+									<strong>7th dimension</strong> <i className="gg-chevron-right ms-auto me-3"/>
+								</div>
+								<br/>
+								Rare
+							</div>
+							<div className="col-4">
+								<strong>8th dimension</strong>
+								<br/>
+								<br/>
+								Legendary
+							</div>
+						</div>
 					</p>
 				</div>
 			</div>

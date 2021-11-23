@@ -12,7 +12,7 @@ const Footer = () => {
 					<img src="/Twitter_bird_logo.svg" alt="Twitter logo" width={"50px"} loading={"lazy"}/>
 				</a>
 				<h4 className={"mb-0 text-white"}>
-					Copyright © 2021 Machine Elves NFTs - All Rights Reserved.
+					Copyright © 2021 Machine Elves - All Rights Reserved.
 				</h4>
 			</div>
 	);
