@@ -75,6 +75,8 @@ const Hero = () => {
 
 	const setupProvider = async () => {
 		await window.ethereum.enable();
+		const provider = new ethers.providers.Web3Provider(window.ethereum);
+		console.log('signer',provider.getSigner());
 		setProvider(new ethers.providers.Web3Provider(window.ethereum));
 	}
 
@@ -97,6 +99,7 @@ const Hero = () => {
 
 	useEffect(() => {
 		if(connectedAddress && ContractInstance){
+			console.log('contract api set',ContractInstance,connectedAddress);
 			setContractApi(ContractApi(ContractInstance, connectedAddress));
 		}else{
 			setContractApi(null);
@@ -119,7 +122,6 @@ const Hero = () => {
 
 	useEffect(() => {
 		if(ContractValues){
-
 			updateMintingStateAndAvailability();
 		}
 	}, [ContractValues]);
@@ -145,7 +147,7 @@ const Hero = () => {
 					if(+e.code === 4001){
 						msg = 'Transaction cancelled';
 					}
-					else if(+e.error.code === -32000){
+					else if(+e.error?.code === -32000){
 						msg = 'Insufficient funds for mint price + gas';
 					}
 				}
@@ -203,6 +205,9 @@ const Hero = () => {
 
 	const mint = async (isPresale, isSale, isClaim) => {
     if(!connectedAddress) return;
+		console.log('signer',signer);
+		const localSigner = await provider.getSigner(connectedAddress);
+		console.log('lcoalSigner',localSigner);
 
 		const network = await provider.getNetwork();
 		const chainId = parseInt(network.chainId, 16);
@@ -232,6 +237,7 @@ const Hero = () => {
 					connectedAddress,
 					mintQuantity,
 					ContractValues.salePrice * mintQuantity,
+					localSigner
 				);
 			});
     } else {
