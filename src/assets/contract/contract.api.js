@@ -11,9 +11,11 @@ export const ConnectionType = {
 };
 
 const ContractApi = (contractInstance, signer )=> {
+  console.log('config contract api',signer);
   const contractInstanceWithSigner = contractInstance.connect(signer);
 
   return {
+    contractInstanceWithSigner,
     async getTokensOfOwner(owner) {
       const res = await contractInstance.tokensOfOwner(owner);
       return res.map(String)
@@ -86,16 +88,23 @@ const ContractApi = (contractInstance, signer )=> {
       params = [],
       price = 0,
       waitReceipt = false,
+      overrideSigner?
     ) {
-
       if (connectionType === ConnectionType.Metamask) {
-        return this.requestWithSignerMetamask(functionName, params, price, waitReceipt);
+        if(overrideSigner){
+          return this.requestWithSignerMetamask(functionName, params, price, waitReceipt,overrideSigner);
+        }else{
+          return this.requestWithSignerMetamask(functionName, params, price, waitReceipt);
+        }
       } else if (connectionType === ConnectionType.WalletConnect) {
         return this.requestWithSignerWalletConnect(buyerAddress, functionName, params, price, waitReceipt);
       }
     },
-    async requestWithSignerMetamask(functionName, params, price, waitReceipt) {
-      const contract = contractInstanceWithSigner;
+    async requestWithSignerMetamask(functionName, params, price, waitReceipt, overrideSigner?) {
+      let contract = contractInstanceWithSigner;
+      if(overrideSigner){
+        contract = contractInstance.connect(overrideSigner);
+      }
       const override = {};
 
       if (price) {
@@ -124,14 +133,17 @@ const ContractApi = (contractInstance, signer )=> {
         true
       )
     },
-    async publicMint(connectionType, buyerAddress, qty, price) {
+    async publicMint(connectionType, buyerAddress, qty, price, localSigner) {
+      console.log('instance',this.contractInstanceWithSigner);
+      console.log('pm local signer',localSigner);
       return await this.requestWithSigner(
         connectionType,
         buyerAddress,
         'mint',
         [qty],
         price,
-        true
+        true,
+        localSigner
       )
     },
     async claimMint(connectionType, buyerAddress) {
