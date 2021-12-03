@@ -2,123 +2,366 @@ import '../assets/css/Hero.css';
 import React, {useEffect, useState} from "react";
 import { ethers } from 'ethers';
 
+import contractAbi from '../assets/contract/abi.json';
+
 // apis
-import ContractApi from '../assets/contract/contract.api';
+import ContractApi, { ConnectionType } from '../assets/contract/contract.api';
+import { signer } from '../assets/contract/instances/ethers';
 import AuthApi from '../assets/contract/auth.api';
+
+async function contractErrorParser(transactionCall) {
+  try {
+    return await transactionCall();
+  } catch (e) {
+
+    console.log(e);
+
+    let msg = '';
+    if (e.data && e.data.message) {
+      if(e.data.code && +e.data.code === -32000){
+        msg = 'Insufficient funds for mint price + gas';
+      }
+      else{
+        msg = e.data.message;
+      }
+    }
+    else {
+      if(e.code){
+        if(+e.code === 4001){
+          msg = 'Transaction cancelled';
+        }
+        else if(+e.error.code === -32000){
+          msg = 'Insufficient funds for mint price + gas';
+        }
+      }
+      else if(e.error != null && e.error.data != null && e.error.data.originalError != null){
+        msg = e.error != null && e.error.data != null && e.error.data.originalError != null ? e.error.data.originalError.message : e.reason;
+      }
+      else if(e.error.message){
+        msg = e.error.message;
+      }
+    }
+
+    if (msg) {
+      throw new Error(msg);
+    } else {
+      throw e;
+    }
+  }
+}
+
 
 const Hero = () => {
   const [provider, setProvider] = useState(null);
-	const [allowConnect, setAllowConnect] = useState(true);
-	const [connectedAddress, setConnectedAddress] = useState("");
+	const [connectedAddress, setConnectedAddress] = useState(null);
 	const [onWhitelist, setOnWhitelist] = useState(false);
+	const [allowMint, setAllowMint] = useState(false);
+	const [ContractInstance, setContractInstance] = useState();
+	const [ContractValues, setContractValues] = useState();
+	const [contractApi, setContractApi] = useState();
+	const [authApi, setAuthApi] = useState();
+	const [signer, setSigner] = useState();
+	const [mintingInProgress, setMintingInProgress] = useState();
+	const [mintText, setMintText] = useState("Mint Now");
+	const [mintStatusText, setMintStatusText] = useState();
 
 	useEffect(() => {
-		// const script = document.createElement('script');
-		// script.src = 'bundle.js';
-		// // script.defer = true;
-		// document.body.appendChild(script);
-		// return () => {
-		// 	document.body.removeChild(script);
-		// };
+		console.log('eth init',window.ethereum);
 		if(!provider && window.ethereum){
 			setProvider(new ethers.providers.Web3Provider(window.ethereum));
 		}
 	}, []);
 
-	const connectMetamask = async () => {
-		if(!allowConnect) return;
-		console.log('check provider',provider);
-		if (!provider) {
-			throw new Error('Please install metamask to use this app.');
-		}
-		setAllowConnect(false);
-		try {
-			console.log('getting accounts');
-			const accounts = await provider.listAccounts();
-			console.log('accounts',accounts);
-			const selectedAccount = accounts[0];
+	useEffect(() => {
+		console.log('provider update',provider);
+		if(provider){
+			const connectButton = document.getElementById('btnConnect');
+			connectButton.disabled = false;
+			connectButton.textContent = 'Connect to Metamask';
+			connectButton.classList = 'btn btn-connect btn-enabled';
 
-			// const address = await provider.getSigner().getAddress();
-			await handleConnect(selectedAccount);
-		}
-		catch (e) {
-				setAllowConnect(true);
-				console.error(e);
-		}
-	}
-
-	const handleConnect = async (address) => {
-		if(address){
-			await changeAddress(address);
-			setAllowConnect(false);
-			setConnectedAddress(address);
+			// also prep the contract
+			if(!ContractInstance){
+				setContractInstance(new ethers.Contract("0x240Ba10E17E3631109ed86432BF51DDc803cFB00", contractAbi, provider));
+			}
 		}else{
-			setAllowConnect(true);
+			// update UI would be nice
+			setContractInstance(null);
 		}
-		await updateMintingStateAndAvailability();
+	}, [provider]);
+
+	useEffect(() => {
+		if(connectedAddress && ContractInstance){
+			setContractApi(ContractApi(ContractInstance, connectedAddress));
+		}else{
+			setContractApi(null);
+		}
+	}, [connectedAddress, ContractInstance]);
+
+	useEffect(() => {
+		if(ContractInstance){
+			setAuthApi(AuthApi(ContractInstance));
+		}else{
+			setAuthApi(null);
+		}
+	}, [ContractInstance]);
+
+	useEffect(() => {
+		if(contractApi){
+			loadContractValues();
+		}
+	}, [contractApi]);
+
+	useEffect(() => {
+		if(ContractValues){
+
+			updateMintingStateAndAvailability();
+		}
+	}, [ContractValues]);
+
+	const connectMetamask = async () => {
+		const metaSigner = await provider.getSigner();
+		const address = await metaSigner.getAddress();
+		setConnectedAddress(address);
+		setSigner(metaSigner);
+		setAllowMint(true);
 	}
 
-	const changeAddress = async (address) => {
-		// session.address = address;
-		setConnectedAddress(address);
+	const mint = async (isPresale, isSale, isClaim) => {
+    if(!connectedAddress) return;
 
-    if (address) {
-        const { isPresale } = await ContractApi.getContractState();
+		const network = await provider.getNetwork();
+		const chainId = parseInt(network.chainId, 16);
+    const error = sessionCheck(chainId===1, connectedAddress, ConnectionType.Metamask);
 
-        if (isPresale) {
-            // session.isOnWhitelist = await AuthApi.whitelisted(address);
-						setOnWhitelist(await AuthApi.whitelisted(address));
+    if (error) {
+        alert(error);
+        throw new Error(error);
+    }
+
+    const mintQuantity = +document.getElementById('qty').value;
+
+    if(isClaim){
+        return await contractErrorParser(async () => {
+            return await contractApi.claimMint(
+                ConnectionType.Metamask,
+                connectedAddress
+            );
+        });
+    }
+    else if (isPresale && !isSale) {
+			return await presaleMint(mintQuantity);
+    } else if (isSale) {
+			return await contractErrorParser(async () => {
+				return await contractApi.publicMint(
+					ConnectionType.Metamask,
+					connectedAddress,
+					mintQuantity,
+					ContractValues.salePrice * mintQuantity,
+				);
+			});
+    } else {
+			throw new Error('Sale is not live');
+    }
+	}
+
+	const sessionCheck = (isMainNet, address, provider) => {
+		if (!provider) {
+			return 'Please install metamask to use this app.';
+		}
+
+		if (!isMainNet) {
+			return (
+				`You are using the wrong network, please switch to ${process.env.NETWORK_NAME} and reload the page.`
+			);
+		}
+
+		if (!address) {
+			return 'Please connect your wallet to use this app.';
+		}
+
+		return null;
+	}
+
+	const presaleMint = async (mintCount) => {
+		const mintedBefore = await contractApi.getMintedAmount(connectedAddress);
+		const maxAmount = ContractValues.maxPresaleQty;
+		const leftToMint = maxAmount - mintedBefore;
+
+		if ((mintedBefore + mintCount) > maxAmount) {
+			const changeCounterText = `Please change the quantity to ${leftToMint}${leftToMint > 1 ? ' or less' : ''} and try again.`;
+			throw new Error(
+					// eslint-disable-next-line max-len
+					`Max per-wallet presale tokens is ${maxAmount}. You have already purchased ${mintedBefore}. ${leftToMint > 0 ? changeCounterText : ''
+					}`,
+			);
+		}
+
+		const { token, nonce } = await authWithToken(ConnectionType.Metamask, connectedAddress);
+
+		if (token) {
+			console.log('got token',token);
+			const { hash, signature } = await authApi.getTransactionHash(token);
+
+			return contractErrorParser(async () => {
+				return await contractApi.presaleMint(
+					ConnectionType.Metamask,
+					connectedAddress,
+					hash,
+					signature,
+					mintCount,
+					nonce,
+					ContractValues.salePrice * mintCount
+				);
+			});
+		}
+	}
+
+	async function authWithToken(type, address) {
+    let signature = null, nonce = null;
+    try {
+			console.log('get nonce for address',address);
+			nonce = await authApi.getNonce(address);
+			console.log('nonce',nonce);
+    } catch (e) {
+        throw new Error('You are not listed for presale');
+    }
+
+    try {
+        const message = `I am signing my one-time nonce to prove that I am the owner of this address, required for presale minting: ${nonce}`;
+
+        if (type === ConnectionType.Metamask) {
+            signature = await signer.signMessage(message);
+        } else {
+            throw new Error('Not supported');
         }
+    } catch (e) {
+        throw new Error('User declined signature');
+    }
+
+    try {
+        const { token } = await AuthApi.authUser(address, signature);
+        return { token, nonce };
+    } catch (e) {
+        throw new Error('We couldn\'t validate your signature. For the optimal user experience, we suggest using a desktop or laptop with Google Chrome and a Metamask wallet.');
+    }
+	}
+
+	async function loadContractValues() {
+    const { maxSupply, salePrice, maxPublicSaleMintQty, maxPresaleQty } = await contractApi.getContractDefaults();
+
+		setContractValues({
+			maxSupply,
+			maxPresaleQty,
+			salePrice,
+			maxPublicSaleMintQty
+		});
+	}
+
+	const updateMintQtyMax = (isPresale, claimableQty) => {
+    if (+claimableQty > 0) {
+        document.getElementById('qty').max = claimableQty;
+    }
+    else {
+        document.getElementById('qty').max = isPresale ? ContractValues.maxAlphaClaimQty : ContractValues.perMintQty;
     }
 	}
 
 	const updateMintingStateAndAvailability = async () => {
-		const { isPresale, isSale, isClaim, totalSold } = await ContractApi.getContractState();
+    const { isPresale, isSale, isClaim, totalSold } = await contractApi.getContractState();
 
     const mintingActive = isPresale || isSale || isClaim;
-    const soldOut = totalSold === session.maxSupply;
+    const soldOut = totalSold === ContractValues.maxSupply;
 
     let presaleQuantity = 0;
     let claimableQty = +0;
 
-    if (isPresale && session.address) {
-        session.isOnWhitelist = await AuthApi.whitelisted(session.address);
+    if (isPresale && connectedAddress) {
+        const isOnWhitelist = await authApi.whitelisted(connectedAddress);
+				setOnWhitelist(isOnWhitelist);
 
-        if (session.isOnWhitelist) {
-            presaleQuantity = await ContractApi.getMintedAmount(session.address);
+        if (isOnWhitelist) {
+            presaleQuantity = await contractApi.getMintedAmount(connectedAddress);
         }
     }
 
-    if (isClaim && session.address) {
-        claimableQty = await ContractApi.getCanClaim(session.address) ? 1 : 0;
+    if (isClaim && connectedAddress) {
+        claimableQty = await contractApi.getCanClaim(connectedAddress) ? 1 : 0;
     }
 
-    const presaleSoldOut = +presaleQuantity >= session.maxAlphaClaimQty;
+    const presaleSoldOut = +presaleQuantity >= ContractValues.maxAlphaClaimQty;
 
-    if (!mintingActive || soldOut || presaleSoldOut || !session.address || (isPresale && !session.isOnWhitelist) || (isClaim && +claimableQty == 0)) {
+    if (!mintingActive || soldOut || presaleSoldOut || !connectedAddress || (isPresale && !onWhitelist) || (isClaim && +claimableQty === 0)) {
         disableMint(mintingActive, presaleSoldOut, false);
     }
     else {
-        if (!session.mintingInProgress) {
+        if (!mintingInProgress) {
             enableMint(isPresale, isSale, claimableQty);
         }
     }
 
     updateMintQtyMax(isPresale, claimableQty);
     
-    updateMintStatus(isPresale, isClaim, 1, isPresale && session.isOnWhitelist ? presaleQuantity : (isClaim ? 1-claimableQty : totalSold));
-    updateDescription();
+    updateMintStatus(isPresale, isClaim, 1, isPresale && onWhitelist ? presaleQuantity : (isClaim ? 1-claimableQty : totalSold));
+		// empty (comments) method in source
+    // updateDescription();
 
     return { isPresale, isSale, isClaim };
 	}
 
+	const updateMintStatus = (isPresale, isClaim, claimableQty, totalSold) => {
+		let statusText = ''; 
+    if(isClaim){
+        statusText = `${totalSold} / ${claimableQty} eligible tokens claimed`;
+    }
+    else if (isPresale && onWhitelist) {
+        statusText = `${totalSold} / ${ContractValues.maxAlphaClaimQty} eligible presale tokens minted`;
+    }
+    else {
+        statusText = `${totalSold} / ${ContractValues.maxSupply} minted`;
+    }
+		setMintStatusText(statusText);
+	}
+
+	const disableMint = (mintingActive, presaleSoldOut, mintingInProgress) => {
+    let reason = '';
+
+    if (mintingInProgress) {
+        reason = 'Minting';
+    }
+    else if (!connectedAddress) {
+        reason = "Not Connected";
+    }
+    else if (!mintingActive || !onWhitelist) {
+        reason = 'Minting is not Active';
+    }
+    else if (presaleSoldOut) {
+        reason = 'All Eligible Tokens Minted';
+    }
+    else {
+        reason = 'Sold Out!'
+    }
+		setMintText(reason);
+    
+    if (!mintingInProgress) {
+        document.getElementById('qty').value = 1;
+    }
+		setAllowMint(false);
+}
+
+	const enableMint = (isPresale, isSale, claimableQty) => {
+		if (+claimableQty > 0) {
+			setMintText('Claim Now');
+		}else if (isPresale && !isSale) {
+			setMintText('Mint Now');
+		}else {
+			setMintText('Mint now');
+		}
+		setAllowMint(true);
+	}
+
 	return (
 			<div className={"hero"}>
-				{/*<picture>*/}
-				{/*	<source media="(min-width:650px)" srcSet="../assets/images/Landingpage.png"/>*/}
-				{/*	<source media="(min-width:465px)" srcSet="../assets/images/Landingpage.png"/>*/}
-				{/*	<img className="hero-img" src={require("../assets/images/Landingpage.png").default} alt="Machine Elves hero image"/>*/}
-				{/*</picture>*/}
 				<div className="row mx-0">
 					<div className="col-12 col-md-6 col-lg-7 order-2 order-md-1 position-relative">
 						<img className="hero__img img-fluid"
@@ -151,8 +394,12 @@ const Hero = () => {
 								<div className="flex-container">
 									<div style={{flex: 1}}>
 										<div style={{flex: 1, padding: '10px 0'}}>
+										{connectedAddress ? 
+											<button className="btn btn-connect btn-disabled" id="btnConnect" disabled>{connectedAddress}</button>
+										:
 											<button className="btn btn-connect btn-enabled" id='btnConnect' onClick={connectMetamask}>Connect to Metamask
 											</button>
+										}
 										</div>
 										
 										<div style={{flex: 1, padding: '10px 0'}}>
@@ -161,7 +408,11 @@ const Hero = () => {
 											<div className={"d-flex align-items-center"}>
 												<input className="mint-input" id='qty' type="number" min="1"
 												       max="10" defaultValue="1"/>
-												<button className="btn btn-mint btn-disabled" disabled id='btnMint'>Mint Now</button>
+												{ allowMint ? 
+													<button className="btn btn-mint btn-enabled" id='btnMint' onClick={mint}>{mintText}</button>
+												:
+													<button className="btn btn-mint btn-disabled" disabled id='btnMint'>{mintText}</button>
+												}
 											</div>
 											<div style={{paddingTop: '5px'}}>
 												<span id="mintingStatus"/>
