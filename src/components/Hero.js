@@ -2,16 +2,9 @@ import '../assets/css/Hero.css';
 import React, {useEffect, useState} from "react";
 import { ethers } from 'ethers';
 
-// abis
-import contractAbi from '../assets/contract/abi.json';
-
-// instances
-import { web3MainNet } from '../assets/contract/instances/ethers';
-import http from '../assets/contract/instances/http';
-
 // apis
-// import ContractApi from '../assets/contract/contract.api';
-// import AuthApi from '../assets/contract/auth.api';
+import ContractApi from '../assets/contract/contract.api';
+import AuthApi from '../assets/contract/auth.api';
 
 const Hero = () => {
   const [provider, setProvider] = useState(null);
@@ -40,8 +33,13 @@ const Hero = () => {
 		}
 		setAllowConnect(false);
 		try {
-				const address = await provider.getSigner().getAddress();
-				await handleConnect(address);
+			console.log('getting accounts');
+			const accounts = await provider.listAccounts();
+			console.log('accounts',accounts);
+			const selectedAccount = accounts[0];
+
+			// const address = await provider.getSigner().getAddress();
+			await handleConnect(selectedAccount);
 		}
 		catch (e) {
 				setAllowConnect(true);
@@ -75,7 +73,43 @@ const Hero = () => {
 	}
 
 	const updateMintingStateAndAvailability = async () => {
+		const { isPresale, isSale, isClaim, totalSold } = await ContractApi.getContractState();
 
+    const mintingActive = isPresale || isSale || isClaim;
+    const soldOut = totalSold === session.maxSupply;
+
+    let presaleQuantity = 0;
+    let claimableQty = +0;
+
+    if (isPresale && session.address) {
+        session.isOnWhitelist = await AuthApi.whitelisted(session.address);
+
+        if (session.isOnWhitelist) {
+            presaleQuantity = await ContractApi.getMintedAmount(session.address);
+        }
+    }
+
+    if (isClaim && session.address) {
+        claimableQty = await ContractApi.getCanClaim(session.address) ? 1 : 0;
+    }
+
+    const presaleSoldOut = +presaleQuantity >= session.maxAlphaClaimQty;
+
+    if (!mintingActive || soldOut || presaleSoldOut || !session.address || (isPresale && !session.isOnWhitelist) || (isClaim && +claimableQty == 0)) {
+        disableMint(mintingActive, presaleSoldOut, false);
+    }
+    else {
+        if (!session.mintingInProgress) {
+            enableMint(isPresale, isSale, claimableQty);
+        }
+    }
+
+    updateMintQtyMax(isPresale, claimableQty);
+    
+    updateMintStatus(isPresale, isClaim, 1, isPresale && session.isOnWhitelist ? presaleQuantity : (isClaim ? 1-claimableQty : totalSold));
+    updateDescription();
+
+    return { isPresale, isSale, isClaim };
 	}
 
 	return (
@@ -147,174 +181,5 @@ const Hero = () => {
 			</div>
 	);
 }
-
-// adding things to prevent loading timing issues
-export const ConnectionType = {
-  // WalletConnect: 'WalletConnect',
-  Metamask: 'Metamask',
-};
-
-const ContractApi = {
-  async getTokensOfOwner(owner) {
-    const res = await contractInstance.tokensOfOwner(owner);
-    return res.map(String)
-  },
-  async getPricePerNFT() {
-    const res = await contractInstance.SALE_PRICE();
-    return res.toString();
-  },
-  async getPresaleLive() {
-    return await contractInstance.presaleMintActive();
-  },
-  async getSaleLive() {
-    return await contractInstance.publicMintActive();
-  },
-  async getClaimLive(){
-    return await contractInstance.foundersDeedClaimActive();
-  },
-  async getTotalSold() {
-    return await contractInstance.totalSupply();
-  },
-  async getMaxQuantity() {
-    return await contractInstance.MAX_SUPPLY();
-  },
-  async getMaxPresaleMintQty(){
-    return await contractInstance.MAX_PER_PRESALE_PURCHASE();
-  },
-  async getPublicSalePerTxMax() {
-    return await contractInstance.MAX_PER_PURCHASE();
-  },
-  async getCanClaim(address){
-    return await contractInstance.canClaim(address);
-  },
-  async getContractState() {
-    const presalePromise = this.getPresaleLive();
-    const salePromise = this.getSaleLive();
-    const claimPromise = this.getClaimLive();
-    const totalSoldPromise = this.getTotalSold();
-
-    const [isPresale, isSale, isClaim, totalSold] = await Promise.all([presalePromise, salePromise, claimPromise, totalSoldPromise]);
-    return { isPresale, isSale, isClaim, totalSold };
-  },
-  async getContractDefaults() {
-    const maxSupplyPromise = this.getMaxQuantity();
-    const salePricePromise = this.getPricePerNFT();
-    const maxPublicSaleMintQtyPromise = this.getPublicSalePerTxMax();
-    const maxPresaleQtyPromise = this.getMaxPresaleMintQty();
-
-    const [
-      maxSupply,
-      salePrice,
-      maxPublicSaleMintQty,
-      maxPresaleQty
-    ] = await Promise.all([
-      maxSupplyPromise,
-      salePricePromise,
-      maxPublicSaleMintQtyPromise,
-      maxPresaleQtyPromise
-    ]);
-
-    return { maxSupply, salePrice, maxPublicSaleMintQty, maxPresaleQty };
-  },
-  async getMintedAmount(address) {
-    const res = await contractInstance.balanceOf(address);
-    return +res;
-  },
-  async requestWithSigner(
-    connectionType,
-    buyerAddress,
-    functionName,
-    params = [],
-    price = 0,
-    waitReceipt = false,
-  ) {
-
-    if (connectionType === ConnectionType.Metamask) {
-      return this.requestWithSignerMetamask(functionName, params, price, waitReceipt);
-    } else if (connectionType === ConnectionType.WalletConnect) {
-      return this.requestWithSignerWalletConnect(buyerAddress, functionName, params, price, waitReceipt);
-    }
-  },
-  async requestWithSignerMetamask(functionName, params, price, waitReceipt) {
-    const contract = contractInstanceWithSigner;
-    const override = {};
-
-    if (price) {
-      override.value = price.toString();
-
-      const estimatedGas = await contract.estimateGas[functionName](...params, override);
-      override.gasLimit = Math.round(estimatedGas * 1.75);
-    }
-
-    const tx = await contract[functionName](...params, override);
-
-    if (waitReceipt) {
-      await tx.wait();
-    }
-
-    return tx.hash;
-  },
-
-  async presaleMint(connectionType, buyerAddress, hash, sig, qty, nonce, price) {
-    return await this.requestWithSigner(
-      connectionType,
-      buyerAddress,
-      'presaleMint',
-      [hash, sig, nonce, qty],
-      price,
-      true
-    )
-  },
-  async publicMint(connectionType, buyerAddress, qty, price) {
-    return await this.requestWithSigner(
-      connectionType,
-      buyerAddress,
-      'mint',
-      [qty],
-      price,
-      true
-    )
-  },
-  async claimMint(connectionType, buyerAddress) {
-    return await this.requestWithSigner(
-      connectionType,
-      buyerAddress,
-      'foundersDeedClaim',
-      [],
-      0,
-      true
-    )
-  },
-};
-
-
-// const contractInstance = new ethers.Contract(process.env.CONTRACT_ADDRESS, contractAbi, web3MainNet);
-// prod
-const contractInstance = new ethers.Contract(0x240Ba10E17E3631109ed86432BF51DDc803cFB00, contractAbi, web3MainNet);
-const contractInstanceWithSigner = contractInstance.connect(signer);
-const contractInterface = new ethers.utils.Interface(contractAbi);
-
-const AuthApi = {
-  async whitelisted(publicAddress) {
-    const res = await http.get(`/auth/whitelist/${contractInstance.address}/${publicAddress}`);
-    return res.data;
-  },
-  async getNonce(publicAddress) {
-    const res = await http.get(`/auth/nonce/${contractInstance.address}/${publicAddress}`);
-    return res.data;
-  },
-  async authUser(publicAddress, signature) {
-    const res = await http.get(`/auth/verify-signature/${contractInstance.address}/${publicAddress}/${signature}`);
-    return res.data;
-  },
-  async getTransactionHash(token) {
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
-
-    const res = await http.get('/transaction/hash', { headers });
-    return res.data;
-  },
-};
 
 export default Hero;
