@@ -83,3 +83,106 @@ p {
     right: 6px;
     top: 4px
 }
+
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+}
+
+#account,
+#description,
+#mintCounts,
+#mintStatus,
+#contractLink{
+    font-size: 19px;
+    color: #006fb9;
+}
+
+#mintingStatus{
+    font-size: 19px;
+    color: #006fb9;
+}
+
+.mint-input {
+    width: 50px;
+    height: 56px;
+    text-align: center;
+    border-radius: 5px;
+    border-width: 2px;
+    border-color: #037dd6;
+    font-size: 19px;
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+.mint-input-disabled {
+    border-color: lightgrey;
+    color: #fff;
+}
+
+/*.btn {*/
+/*    padding: 15px 40px;*/
+/*    border-radius: 5px;*/
+/*    font-weight: bold;*/
+/*    font-size: 19px;*/
+/*    transition: all .2s ease-in-out;*/
+/*}*/
+
+.btn-enabled{
+    background-color: #8162ff;
+    color: white;
+}
+
+.btn-enabled:hover {
+    background-color: #0372c3;
+    cursor: pointer;
+}
+
+.btn-disabled{
+    background-color: #515252;
+    color: white;
+}
+
+.btn-mint {
+    width: 150px;
+    margin-left: 1rem;
+}
+
+.link-tx {
+    font-size: 19px;
+    color: #006fb9;
+    text-decoration: underline;
+}
+
+.link-tx:hover{
+    cursor: pointer;
+}
+
+@media (max-width: 800px) {
+    .flex-container {
+        flex-direction: column;
+    }
+}
+
+@keyframes spinner {
+    to {transform: rotate(360deg);}
+}
+
+.spinner { position: relative; }
+
+.spinner:before {
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    top: 50%;
+    right: 5%;
+    width: 30px;
+    height: 30px;
+    margin-top: -15px;
+    margin-left: -15px;
+    border-radius: 50%;
+    border-top: 5px solid white;
+    border-right: 5px solid transparent;
+    animation: spinner .6s linear infinite;
+}

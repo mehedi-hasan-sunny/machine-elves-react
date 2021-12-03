@@ -23,7 +23,8 @@ const About = () => {
 			<div className={"about"}>
 				<div id={"about"} className={"about__container text-white"}>
 					<div className={"about__container-bg"}/>
-					<div className={"about__wrapper d-flex flex-column justify-content-center align-items-start align-items-sm-center py-5"}>
+					<div
+							className={"about__wrapper d-flex flex-column justify-content-center align-items-start align-items-sm-center py-5"}>
 						<h1 className={"about__title mb-4"}>ENTER MACHINE ELVES</h1>
 						<p className={"about__description"}>
 							<strong>History’s astrophysicist</strong> greats, Carl Sagan & Neil DeGrasse Tyson have given
@@ -33,9 +34,11 @@ const About = () => {
 							third dimension, a human sees only a sliver of the object. Just the ‘tip’ of the larger iceberg so to
 							speak. <strong>Enter ‘interpretation.’</strong> One human may inherently perceive this 'sliver' as a
 							non-happening and repress the sight of the object appearing and vanishing instantly from memory. Whilst a
-							separate person may perceive the moment for what it could be with no need of ‘proof.’ Astrophysical
-							principle minded folks clash with those who mistake their narrow minds with logic based disbelief grounded
-							by the scientific method.
+							separate person may perceive the moment for what it could be with no need of ‘proof.’ ‘Astrophysical
+							principle’ minded pioneers (ETH maxies & Machine Elf hodlers) ascend above narrow minded people
+							(Cardano-curious crypto skeptics; usually sweaty and smelly) who plead the ‘scientific method’ at every
+							turn til’ their respective government or employer permits them to believe new possibilities.
+						
 						</p>
 						<p className={"about__description"}>
 							<strong>Machine Elves</strong> are here to balloon holders up to <strong>higher dimensions</strong> to see

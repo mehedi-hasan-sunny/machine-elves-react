@@ -30,7 +30,9 @@ const Team = () => {
 			imgSrc: require("../assets/images/JUPS_PFP-1.png").default,
 			name: "Jups",
 			designation: "9th dimension Artist",
-			job: "Illustrating what he dreams, Jups is an artistic marvel and we’re delighted he’s inducting us into untapped realms. Jups most recently served as a character design artist for Marvel’s new ‘HIT-MONKEY’ series on HULU."
+			job: "Illustrating what he dreams, Jups is an artistic marvel and we’re delighted he’s inducting us into untapped realms. Jups most recently served as a character design artist for Marvel’s new ‘HIT-MONKEY’ series on HULU.",
+			twitterHandle: "https://twitter.com/jups_the_artist"
+			
 		},
 		{
 			imgSrc: require("../assets/images/FREB.png").default,
@@ -47,7 +49,14 @@ const Team = () => {
 			twitterHandle: "https://twitter.com/WickedDig"
 		},
 		{
-			imgSrc: require("../assets/images/UseThis4.png").default,
+			imgSrc: require("../assets/images/Last1.png").default,
+			name: "PICOPYRO",
+			designation: "Smart Contract Guide",
+			job: "Backend Developer behind LeapN’s OG Founders Deed Plots collection, Pico Pyro ensures the uninitiated can access and mint the Machine Elf that will change their life for the better. Pico Pyro knows all things blockchain.",
+			twitterHandle: "https://twitter.com/Picopyro"
+		},
+		{
+			imgSrc: require("../assets/images/835.png").default,
 			name: "Duo",
 			designation: "6th dimensional Marketing & Outreach",
 			job: "Duo’s artistic essence, wisdom and longevity of the NFT space and cool, calm nature make him the most pleasant human people will tell you they’ve encountered. Is he secretly a machine elf? Probably…",

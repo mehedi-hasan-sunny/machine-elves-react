@@ -1,6 +1,17 @@
 import '../assets/css/Hero.css';
+import {useEffect} from "react";
 
 const Hero = () => {
+	
+	useEffect(() => {
+		const script = document.createElement('script');
+		script.src = 'bundle.js';
+		script.defer = true;
+		document.body.appendChild(script);
+		return () => {
+			document.body.removeChild(script);
+		};
+	}, []);
 	return (
 			<div className={"hero"}>
 				{/*<picture>*/}
@@ -23,21 +34,46 @@ const Hero = () => {
 					<div className="col-12 col-md-6 col-lg-5 order-1 order-md-2">
 						<div className={"hero__container d-flex flex-column justify-content-center"}>
 							<h2 className={"hero__title"} data-aos-delay="50" data-aos="zoom-in-down">
-								What are Machine Elves?
+								What are the Machine Elves?
 							</h2>
 							<p className={"hero__description"} data-aos-delay="250" data-aos="zoom-in-down">
 								Illustrated by <strong>Jups</strong> (Past clients: <strong>Marvel and Sony Animation</strong>)
 							</p>
 							<p className={"hero__description"} data-aos-delay="400" data-aos="zoom-in-down">
-								<strong>Machine Elves</strong> are self-transforming <strong>cross-dimensional entities</strong> of the fourth dimension and on - these
+								<strong>Machine Elves</strong> are self-transforming <strong>cross-dimensional entities</strong> of the
+								fourth dimension and on - these
 								manically happy creatures communicate via visual sound waves that pour out of their mouths like shiny
-								rainbow cartoon captions. People can't hear them with their ears - they see the waves with their eyes as
-								the elves unlock <strong>JUNK DNA</strong> that interprets the metaversal lessons that ascend all to web3 paradise.
+								rainbow cartoon captions. People can't hear them with their ears - they see the waves with their as the
+								elves unlock the human recipient’s JUNK DNA, which unlock <strong>metaversal</strong> insights that
+								ascend all to web3 enlightenment.
 							</p>
-							{/*<p className={"hero__description"} data-aos-delay="500" data-aos="zoom-in-down">*/}
-							{/*	5,555 will mint on Ethereum blockchain – to induct the collective into the web3 way of life. A*/}
-							{/*	decentralized paradise free of centralized shackles.*/}
-							{/*</p>*/}
+							<div data-aos-delay="500" data-aos="zoom-in-down">
+								<div className="flex-container">
+									<div style={{flex: 1}}>
+										<div style={{flex: 1, padding: '10px 0'}}>
+											<button className="btn btn-connect btn-enabled" disabled id='btnConnect'>Connect to Metamask
+											</button>
+										</div>
+										
+										<div style={{flex: 1, padding: '10px 0'}}>
+											<span id="mintCounts"/>
+											<span>
+											<div className={"d-flex align-items-center"}>
+												<input className="mint-input mint-input-disabled" disabled id='qty' type="number" min="1"
+												       max="10" defaultValue="1"/>
+												<button className="btn btn-mint btn-disabled" disabled id='btnMint'>Mint Now</button>
+											</div>
+											<div style={{paddingTop: '5px'}}>
+												<span id="mintingStatus"/>
+											</div>
+											</span>
+										</div>
+										<div style={{flex: 1, padding: '10px'}}>
+											<span id="contractLink"/>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
