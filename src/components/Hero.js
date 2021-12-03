@@ -8,46 +8,48 @@ import contractAbi from '../assets/contract/abi.json';
 import ContractApi, { ConnectionType } from '../assets/contract/contract.api';
 import AuthApi from '../assets/contract/auth.api';
 
-async function contractErrorParser(transactionCall) {
-  try {
-    return await transactionCall();
-  } catch (e) {
+// async function contractErrorParser(transactionCall) {
+//   try {
+//     return await transactionCall();
+//   } catch (e) {
 
-    console.log(e);
+//     console.log(e);
 
-    let msg = '';
-    if (e.data && e.data.message) {
-      if(e.data.code && +e.data.code === -32000){
-        msg = 'Insufficient funds for mint price + gas';
-      }
-      else{
-        msg = e.data.message;
-      }
-    }
-    else {
-      if(e.code){
-        if(+e.code === 4001){
-          msg = 'Transaction cancelled';
-        }
-        else if(+e.error.code === -32000){
-          msg = 'Insufficient funds for mint price + gas';
-        }
-      }
-      else if(e.error != null && e.error.data != null && e.error.data.originalError != null){
-        msg = e.error != null && e.error.data != null && e.error.data.originalError != null ? e.error.data.originalError.message : e.reason;
-      }
-      else if(e.error.message){
-        msg = e.error.message;
-      }
-    }
+//     let msg = '';
+//     if (e.data && e.data.message) {
+//       if(e.data.code && +e.data.code === -32000){
+//         msg = 'Insufficient funds for mint price + gas';
+//       }
+//       else{
+//         msg = e.data.message;
+//       }
+//     }
+//     else {
+//       if(e.code){
+//         if(+e.code === 4001){
+//           msg = 'Transaction cancelled';
+//         }
+//         else if(+e.error.code === -32000){
+//           msg = 'Insufficient funds for mint price + gas';
+//         }
+//       }
+//       else if(e.error != null && e.error.data != null && e.error.data.originalError != null){
+//         msg = e.error != null && e.error.data != null && e.error.data.originalError != null ? e.error.data.originalError.message : e.reason;
+//       }
+//       else if(e.error.message){
+//         msg = e.error.message;
+//       }
+//     }
 
-    if (msg) {
-      throw new Error(msg);
-    } else {
-      throw e;
-    }
-  }
-}
+//     if (msg) {
+// 			alert(msg);
+// 			setErrorMessage(msg);
+//       throw new Error(msg);
+//     } else {
+//       throw e;
+//     }
+//   }
+// }
 
 
 const Hero = () => {
@@ -63,12 +65,18 @@ const Hero = () => {
 	const [mintingInProgress, setMintingInProgress] = useState();
 	const [mintText, setMintText] = useState("Mint Now");
 	const [mintStatusText, setMintStatusText] = useState();
+	const [errorMessage, setErrorMessage] = useState();
 
 	useEffect(() => {
 		if(!provider && window.ethereum){
-			setProvider(new ethers.providers.Web3Provider(window.ethereum));
+			setupProvider();
 		}
 	}, []);
+
+	const setupProvider = async () => {
+		await window.ethereum.enable();
+		setProvider(new ethers.providers.Web3Provider(window.ethereum));
+	}
 
 	useEffect(() => {
 		if(provider){
@@ -116,6 +124,49 @@ const Hero = () => {
 		}
 	}, [ContractValues]);
 
+	const contractErrorParser = async (transactionCall) => {
+		try {
+			return await transactionCall();
+		} catch (e) {
+	
+			console.log(e);
+	
+			let msg = '';
+			if (e.data && e.data.message) {
+				if(e.data.code && +e.data.code === -32000){
+					msg = 'Insufficient funds for mint price + gas';
+				}
+				else{
+					msg = e.data.message;
+				}
+			}
+			else {
+				if(e.code){
+					if(+e.code === 4001){
+						msg = 'Transaction cancelled';
+					}
+					else if(+e.error.code === -32000){
+						msg = 'Insufficient funds for mint price + gas';
+					}
+				}
+				else if(e.error != null && e.error.data != null && e.error.data.originalError != null){
+					msg = e.error != null && e.error.data != null && e.error.data.originalError != null ? e.error.data.originalError.message : e.reason;
+				}
+				else if(e.error.message){
+					msg = e.error.message;
+				}
+			}
+	
+			if (msg) {
+				alert(msg);
+				setErrorMessage(msg);
+				throw new Error(msg);
+			} else {
+				throw e;
+			}
+		}
+	}
+
 	const connectMetamask = async () => {
 		const metaSigner = await provider.getSigner();
 		const address = await metaSigner.getAddress();
@@ -148,8 +199,6 @@ const Hero = () => {
 			setMintingInProgress(false);
 			await updateMintingStateAndAvailability();
 		}
-
-
 	}
 
 	const mint = async (isPresale, isSale, isClaim) => {
@@ -441,6 +490,11 @@ const Hero = () => {
 													<button className="btn btn-mint btn-disabled" disabled id='btnMint'>{mintText}</button>
 												}
 											</div>
+											{ errorMessage ? 
+												<div className="error-box">
+													<p class="danger">{errorMessage}</p>
+												</div>
+											: null}
 											<div style={{paddingTop: '5px'}}>
 												<span id="mintingStatus"/>
 											</div>
