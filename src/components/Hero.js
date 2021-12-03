@@ -6,7 +6,6 @@ import contractAbi from '../assets/contract/abi.json';
 
 // apis
 import ContractApi, { ConnectionType } from '../assets/contract/contract.api';
-import { signer } from '../assets/contract/instances/ethers';
 import AuthApi from '../assets/contract/auth.api';
 
 async function contractErrorParser(transactionCall) {
@@ -266,7 +265,7 @@ const Hero = () => {
     }
 
     try {
-        const { token } = await AuthApi.authUser(address, signature);
+        const { token } = await authApi.authUser(address, signature);
         return { token, nonce };
     } catch (e) {
         throw new Error('We couldn\'t validate your signature. For the optimal user experience, we suggest using a desktop or laptop with Google Chrome and a Metamask wallet.');
@@ -302,40 +301,42 @@ const Hero = () => {
     let presaleQuantity = 0;
     let claimableQty = +0;
 
-    if (isPresale && connectedAddress) {
-        const isOnWhitelist = await authApi.whitelisted(connectedAddress);
-				setOnWhitelist(isOnWhitelist);
+		let isOnWhitelist = false;
+    if (isPresale && connectedAddress && !onWhitelist) {
+        // const isOnWhitelist = await authApi.whitelisted(connectedAddress);
+        isOnWhitelist = await authApi.whitelisted(connectedAddress);
 
         if (isOnWhitelist) {
-            presaleQuantity = await contractApi.getMintedAmount(connectedAddress);
+					presaleQuantity = await contractApi.getMintedAmount(connectedAddress);
+					setOnWhitelist(true);
         }
     }
-
     if (isClaim && connectedAddress) {
         claimableQty = await contractApi.getCanClaim(connectedAddress) ? 1 : 0;
     }
 
     const presaleSoldOut = +presaleQuantity >= ContractValues.maxAlphaClaimQty;
 
-    if (!mintingActive || soldOut || presaleSoldOut || !connectedAddress || (isPresale && !onWhitelist) || (isClaim && +claimableQty === 0)) {
+    // if (!mintingActive || soldOut || presaleSoldOut || !connectedAddress || (isPresale && !onWhitelist) || (isClaim && +claimableQty === 0)) {
+		if (!mintingActive || soldOut || presaleSoldOut || !connectedAddress || (isPresale && !isOnWhitelist) || (isClaim && +claimableQty === 0)) {
         disableMint(mintingActive, presaleSoldOut, false);
     }
     else {
-        if (!mintingInProgress) {
-            enableMint(isPresale, isSale, claimableQty);
-        }
+			if (!mintingInProgress) {
+				enableMint(isPresale, isSale, claimableQty);
+			}
     }
 
     updateMintQtyMax(isPresale, claimableQty);
     
-    updateMintStatus(isPresale, isClaim, 1, isPresale && onWhitelist ? presaleQuantity : (isClaim ? 1-claimableQty : totalSold));
+    updateMintStatus(isPresale, isClaim, 1, isPresale && isOnWhitelist ? presaleQuantity : (isClaim ? 1-claimableQty : totalSold));
 		// empty (comments) method in source
     // updateDescription();
-
     return { isPresale, isSale, isClaim };
 	}
 
 	const updateMintStatus = (isPresale, isClaim, claimableQty, totalSold) => {
+		console.log('udpate mint status',isPresale,isClaim,claimableQty,totalSold);
 		let statusText = ''; 
     if(isClaim){
         statusText = `${totalSold} / ${claimableQty} eligible tokens claimed`;
