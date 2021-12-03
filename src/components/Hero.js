@@ -69,9 +69,14 @@ const Hero = () => {
 
 	useEffect(() => {
 		if(!provider && window.ethereum){
-			setProvider(new ethers.providers.Web3Provider(window.ethereum));
+			setupProvider();
 		}
 	}, []);
+
+	const setupProvider = async () => {
+		await window.ethereum.enable();
+		setProvider(new ethers.providers.Web3Provider(window.ethereum));
+	}
 
 	useEffect(() => {
 		if(provider){
