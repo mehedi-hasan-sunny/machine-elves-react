@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const http = axios.create({
-  baseURL: process.env.API_URL,
+  baseURL: "https://app.pyronftstudio.com/api",
   headers: {
     common: {
       'X-Requested-With': 'XMLHttpRequest'

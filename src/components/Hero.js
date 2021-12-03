@@ -127,6 +127,34 @@ const Hero = () => {
 		setAllowMint(true);
 	}
 
+	const handleMint = async () => {
+		if(!connectedAddress) return;
+
+		const network = await provider.getNetwork();
+		const chainId = parseInt(network.chainId, 16);
+    const error = sessionCheck(chainId===1, connectedAddress, ConnectionType.Metamask);
+
+    if (error) {
+			alert(error);
+			throw new Error(error);
+    }
+
+		const { isPresale, isSale, isClaim } = await updateMintingStateAndAvailability();
+		setMintingInProgress(true);
+		try{
+			const txHash = await mint(isPresale,isSale,isClaim);
+			setMintStatusText(`Transaction complete.  View it on&nbsp<a class=\"link-tx\" target=\"_blank\" onclick="window.open(this.href,'_blank');return false;" href=\"https://${process.env.ETHERSCAN_DOMAIN}.io/tx/${txHash}\">etherscan.io</a>`);
+		}catch(e){
+			updateMintStatus(e);
+			throw e;
+		}finally{
+			setMintingInProgress(false);
+			await updateMintingStateAndAvailability();
+		}
+
+
+	}
+
 	const mint = async (isPresale, isSale, isClaim) => {
     if(!connectedAddress) return;
 
@@ -403,13 +431,13 @@ const Hero = () => {
 										</div>
 										
 										<div style={{flex: 1, padding: '10px 0'}}>
-											<span id="mintCounts"/>
+											<span id="mintCounts">{mintStatusText}</span>
 											<span>
 											<div className={"d-flex align-items-center"}>
 												<input className="mint-input" id='qty' type="number" min="1"
 												       max="10" defaultValue="1"/>
 												{ allowMint ? 
-													<button className="btn btn-mint btn-enabled" id='btnMint' onClick={mint}>{mintText}</button>
+													<button className="btn btn-mint btn-enabled" id='btnMint' onClick={handleMint}>{mintText}</button>
 												:
 													<button className="btn btn-mint btn-disabled" disabled id='btnMint'>{mintText}</button>
 												}
