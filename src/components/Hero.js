@@ -42,6 +42,7 @@ async function contractErrorParser(transactionCall) {
     }
 
     if (msg) {
+			alert(msg);
       throw new Error(msg);
     } else {
       throw e;
