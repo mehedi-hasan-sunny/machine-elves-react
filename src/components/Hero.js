@@ -66,14 +66,12 @@ const Hero = () => {
 	const [mintStatusText, setMintStatusText] = useState();
 
 	useEffect(() => {
-		console.log('eth init',window.ethereum);
 		if(!provider && window.ethereum){
 			setProvider(new ethers.providers.Web3Provider(window.ethereum));
 		}
 	}, []);
 
 	useEffect(() => {
-		console.log('provider update',provider);
 		if(provider){
 			const connectButton = document.getElementById('btnConnect');
 			connectButton.disabled = false;
