@@ -8,50 +8,6 @@ import contractAbi from '../assets/contract/abi.json';
 import ContractApi, { ConnectionType } from '../assets/contract/contract.api';
 import AuthApi from '../assets/contract/auth.api';
 
-// async function contractErrorParser(transactionCall) {
-//   try {
-//     return await transactionCall();
-//   } catch (e) {
-
-//     console.log(e);
-
-//     let msg = '';
-//     if (e.data && e.data.message) {
-//       if(e.data.code && +e.data.code === -32000){
-//         msg = 'Insufficient funds for mint price + gas';
-//       }
-//       else{
-//         msg = e.data.message;
-//       }
-//     }
-//     else {
-//       if(e.code){
-//         if(+e.code === 4001){
-//           msg = 'Transaction cancelled';
-//         }
-//         else if(+e.error.code === -32000){
-//           msg = 'Insufficient funds for mint price + gas';
-//         }
-//       }
-//       else if(e.error != null && e.error.data != null && e.error.data.originalError != null){
-//         msg = e.error != null && e.error.data != null && e.error.data.originalError != null ? e.error.data.originalError.message : e.reason;
-//       }
-//       else if(e.error.message){
-//         msg = e.error.message;
-//       }
-//     }
-
-//     if (msg) {
-// 			alert(msg);
-// 			setErrorMessage(msg);
-//       throw new Error(msg);
-//     } else {
-//       throw e;
-//     }
-//   }
-// }
-
-
 const Hero = () => {
   const [provider, setProvider] = useState(null);
 	const [connectedAddress, setConnectedAddress] = useState(null);
@@ -71,6 +27,7 @@ const Hero = () => {
 		if(!provider && window.ethereum){
 			setupProvider();
 		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const setupProvider = async () => {
@@ -95,6 +52,7 @@ const Hero = () => {
 			// update UI would be nice
 			setContractInstance(null);
 		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [provider]);
 
 	useEffect(() => {
@@ -118,12 +76,14 @@ const Hero = () => {
 		if(contractApi){
 			loadContractValues();
 		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [contractApi]);
 
 	useEffect(() => {
 		if(ContractValues){
 			updateMintingStateAndAvailability();
 		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [ContractValues]);
 
 	const contractErrorParser = async (transactionCall) => {
@@ -348,7 +308,7 @@ const Hero = () => {
     }
 	}
 
-	const updateMintingStateAndAvailability = async () => {
+	async function updateMintingStateAndAvailability() {
     const { isPresale, isSale, isClaim, totalSold } = await contractApi.getContractState();
 
     const mintingActive = isPresale || isSale || isClaim;
@@ -356,45 +316,40 @@ const Hero = () => {
 
     let presaleQuantity = 0;
     let claimableQty = +0;
+    let allowClaim = false;
 
-		let isOnWhitelist = false;
-    if (isPresale && connectedAddress && !onWhitelist) {
-        // const isOnWhitelist = await authApi.whitelisted(connectedAddress);
-        isOnWhitelist = await authApi.whitelisted(connectedAddress);
+    if (isPresale && connectedAddress) {
+        setOnWhitelist(await AuthApi.whitelisted(connectedAddress))
 
-        if (isOnWhitelist) {
-					presaleQuantity = await contractApi.getMintedAmount(connectedAddress);
-					setOnWhitelist(true);
+        if (onWhitelist) {
+            presaleQuantity = await contractApi.getMintedAmount(connectedAddress);
         }
     }
+
     if (isClaim && connectedAddress) {
-        claimableQty = await contractApi.getCanClaim(connectedAddress) ? 1 : 0;
+        allowClaim = await contractApi.getCanClaim(connectedAddress);
+        claimableQty = allowClaim ? 1 : 0;
     }
 
     const presaleSoldOut = +presaleQuantity >= ContractValues.maxAlphaClaimQty;
 
-    // if (!mintingActive || soldOut || presaleSoldOut || !connectedAddress || (isPresale && !onWhitelist) || (isClaim && +claimableQty === 0)) {
-		if (!mintingActive || soldOut || presaleSoldOut || !connectedAddress || (isPresale && !isOnWhitelist) || (isClaim && +claimableQty === 0)) {
+    if (!mintingActive || soldOut || presaleSoldOut || !connectedAddress || (isPresale && !onWhitelist) || (isClaim && +claimableQty === 0)) {
         disableMint(mintingActive, presaleSoldOut, false);
     }
     else {
-			if (!mintingInProgress) {
-				enableMint(isPresale, isSale, claimableQty);
-			}
+        if (!mintingInProgress) {
+            enableMint(isPresale, isSale, claimableQty);
+        }
     }
-
     updateMintQtyMax(isPresale, claimableQty);
-    
-    updateMintStatus(isPresale, isClaim, 1, isPresale && isOnWhitelist ? presaleQuantity : (isClaim ? 1-claimableQty : totalSold));
-		// empty (comments) method in source
-    // updateDescription();
-    return { isPresale, isSale, isClaim };
-	}
+    updateMintStatus(isPresale, isClaim, allowClaim, 1, isPresale && onWhitelist ? presaleQuantity : (isClaim && allowClaim ? 1-claimableQty : totalSold));
 
-	const updateMintStatus = (isPresale, isClaim, claimableQty, totalSold) => {
-		console.log('udpate mint status',isPresale,isClaim,claimableQty,totalSold);
-		let statusText = ''; 
-    if(isClaim){
+    return { isPresale, isSale, isClaim };
+}
+
+	const updateMintStatus = (isPresale, isClaim, allowClaim, claimableQty, totalSold) => {
+    let statusText;
+    if(isClaim && allowClaim){
         statusText = `${totalSold} / ${claimableQty} eligible tokens claimed`;
     }
     else if (isPresale && onWhitelist) {
