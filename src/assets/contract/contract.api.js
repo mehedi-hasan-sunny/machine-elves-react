@@ -146,14 +146,15 @@ const ContractApi = (contractInstance, signer )=> {
         localSigner
       )
     },
-    async claimMint(connectionType, buyerAddress) {
+    async claimMint(connectionType, buyerAddress, localSigner) {
       return await this.requestWithSigner(
         connectionType,
         buyerAddress,
         'foundersDeedClaim',
         [],
         0,
-        true
+        true,
+        localSigner
       )
     },
   }

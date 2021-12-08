@@ -224,7 +224,8 @@ const Hero = () => {
         return await contractErrorParser(async () => {
             return await contractApi.claimMint(
                 ConnectionType.Metamask,
-                connectedAddress
+                connectedAddress,
+								localSigner
             );
         });
     }
