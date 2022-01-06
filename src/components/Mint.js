@@ -21,7 +21,7 @@ function Mint(props) {
 						Join our Discord for giveaways, updates, and to join the Machine Elves community.
 					</h1>
 					<p className={"mint__description mb-5"}>
-						<a href="#" className={"btn btn-outline"}>Coming Soon</a>
+						<a href="https://discord.gg/machineelves" className={"btn btn-outline"}>Join Discord</a>
 					</p>
 				</div>
 			

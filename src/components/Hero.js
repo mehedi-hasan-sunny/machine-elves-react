@@ -31,9 +31,9 @@ const Hero = () => {
 	}, []);
 
 	const setupProvider = async () => {
-		await window.ethereum.enable();
-		const provider = new ethers.providers.Web3Provider(window.ethereum);
-		console.log('signer',provider.getSigner());
+		await window.ethereum.request({method: 'eth_requestAccounts'});
+		// const provider = new ethers.providers.Web3Provider(window.ethereum);
+		// console.log('signer',provider.getSigner());
 		setProvider(new ethers.providers.Web3Provider(window.ethereum));
 	}
 
@@ -57,7 +57,7 @@ const Hero = () => {
 
 	useEffect(() => {
 		if(connectedAddress && ContractInstance){
-			console.log('contract api set',ContractInstance,connectedAddress);
+			// console.log('contract api set',ContractInstance,connectedAddress);
 			setContractApi(ContractApi(ContractInstance, connectedAddress));
 		}else{
 			setContractApi(null);
@@ -122,7 +122,6 @@ const Hero = () => {
 			if (msg) {
 				alert(msg);
 				setErrorMessage(msg);
-				throw new Error(msg);
 			} else {
 				throw e;
 			}
@@ -153,7 +152,7 @@ const Hero = () => {
 		setMintingInProgress(true);
 		try{
 			const txHash = await mint(isPresale,isSale,isClaim);
-			setMintStatusText(`Transaction complete.  View it on&nbsp<a class=\"link-tx\" target=\"_blank\" onclick="window.open(this.href,'_blank');return false;" href=\"https://${process.env.ETHERSCAN_DOMAIN}.io/tx/${txHash}\">etherscan.io</a>`);
+			setMintStatusText(`Transaction complete.  View it on https://etherscan.io/tx/${txHash}`);
 		}catch(e){
 			updateMintStatus(e);
 			throw e;
@@ -165,9 +164,9 @@ const Hero = () => {
 
 	const mint = async (isPresale, isSale, isClaim) => {
     if(!connectedAddress) return;
-		console.log('signer',signer);
+		// console.log('signer',signer);
 		const localSigner = await provider.getSigner(connectedAddress);
-		console.log('lcoalSigner',localSigner);
+		// console.log('lcoalSigner',localSigner);
 
 		const network = await provider.getNetwork();
 		const chainId = parseInt(network.chainId, 16);
@@ -213,7 +212,7 @@ const Hero = () => {
 
 		if (!isMainNet) {
 			return (
-				`You are using the wrong network, please switch to ${process.env.NETWORK_NAME} and reload the page.`
+				`You are using the wrong network, please switch to Ethereum mainnet and reload the page.`
 			);
 		}
 
@@ -454,7 +453,7 @@ const Hero = () => {
 											</div>
 											{ errorMessage ? 
 												<div className="error-box">
-													<p class="danger">{errorMessage}</p>
+													<p className="danger">{errorMessage}</p>
 												</div>
 											: null}
 											<div style={{paddingTop: '5px'}}>

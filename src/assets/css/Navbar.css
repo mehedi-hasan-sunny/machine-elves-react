@@ -11,6 +11,12 @@
     text-decoration: none;
     color: white;
 }
+.navbar button {
+    text-decoration: none;
+    color: white;
+    background-color: inherit;
+    border-style: none;
+}
 
 .navbar__brand {
     font-family: "Archivo", 'Montserrat', sans-serif;

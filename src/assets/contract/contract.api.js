@@ -11,7 +11,7 @@ export const ConnectionType = {
 };
 
 const ContractApi = (contractInstance, signer )=> {
-  console.log('config contract api',signer);
+  // console.log('config contract api',signer);
   const contractInstanceWithSigner = contractInstance.connect(signer);
 
   return {
@@ -88,7 +88,7 @@ const ContractApi = (contractInstance, signer )=> {
       params = [],
       price = 0,
       waitReceipt = false,
-      overrideSigner?
+      overrideSigner
     ) {
       if (connectionType === ConnectionType.Metamask) {
         if(overrideSigner){
@@ -100,7 +100,7 @@ const ContractApi = (contractInstance, signer )=> {
         return this.requestWithSignerWalletConnect(buyerAddress, functionName, params, price, waitReceipt);
       }
     },
-    async requestWithSignerMetamask(functionName, params, price, waitReceipt, overrideSigner?) {
+    async requestWithSignerMetamask(functionName, params, price, waitReceipt, overrideSigner) {
       let contract = contractInstanceWithSigner;
       if(overrideSigner){
         contract = contractInstance.connect(overrideSigner);
@@ -134,8 +134,8 @@ const ContractApi = (contractInstance, signer )=> {
       )
     },
     async publicMint(connectionType, buyerAddress, qty, price, localSigner) {
-      console.log('instance',this.contractInstanceWithSigner);
-      console.log('pm local signer',localSigner);
+      // console.log('instance',this.contractInstanceWithSigner);
+      // console.log('pm local signer',localSigner);
       return await this.requestWithSigner(
         connectionType,
         buyerAddress,
