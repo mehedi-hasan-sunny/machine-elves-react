@@ -41,7 +41,7 @@ const Navbar = () => {
 	}
 	useEffect(() => {
 		window.addEventListener('resize', windowSize);
-		
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	
 	useEffect(() => {
@@ -87,9 +87,9 @@ const Navbar = () => {
 					
 					{
 						!isHiddenOnMobile ? (<NavLinks/>) : (
-								<a href="#" onClick={(event) => openSlider(event)}>
+								<button onClick={(event) => openSlider(event)}>
 									<i className={"navbar__menu"}/>
-								</a>
+								</button>
 						)
 					}
 				

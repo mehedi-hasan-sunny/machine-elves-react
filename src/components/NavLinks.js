@@ -8,7 +8,7 @@ const NavLinks = ({isMobile}) => {
 				<a href="#about" className={"navbar__link"}>About</a>
 				<a href="#trait" className={"navbar__link"}>Trait</a>
 				<a href="#roadmap" className={"navbar__link"}>Roadmap</a>
-				<a href="#mint" className={"navbar__link"}>Mint</a>
+				<a href="#mint" className={"navbar__link"}>Fair Distribution</a>
 				<a href="#team" className={"navbar__link"}>Team</a>
 			</div>
 	);
